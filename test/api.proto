@@ -1,0 +1,8 @@
+// Copyright © 2022 The Things Industries B.V.
+// SPDX-License-Identifier: Apache-2.0
+
+syntax = "proto3";
+
+package thethings.fieldsetters.test;
+
+option go_package = "github.com/TheThingsIndustries/protoc-gen-go-field-setters/test";

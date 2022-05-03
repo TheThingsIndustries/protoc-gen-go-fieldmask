@@ -1,0 +1,83 @@
+// Copyright © 2022 The Things Industries B.V.
+// SPDX-License-Identifier: Apache-2.0
+
+syntax = "proto2";
+
+package thethings.fieldsetters;
+
+option go_package = "github.com/TheThingsIndustries/protoc-gen-go-field-setters/annotations";
+
+import "google/protobuf/descriptor.proto";
+
+// NOTE: protoc-gen-go-field-setters is primarily intended for internal use by
+// The Things Industries. We have therefore chosen to use option number 51887,
+// which is in the 50000-99999 range reserved for internal use within individual
+// organizations. For this reason, the option number is not registered on
+// https://github.com/protocolbuffers/protobuf/blob/master/docs/options.md.
+
+message FileOptions {
+  // Generate field setters for all messages and enums in this file.
+  // Message options can be used to override this.
+  optional bool field_setter_all = 1;
+}
+
+extend google.protobuf.FileOptions {
+  optional FileOptions file = 51887;
+}
+
+message MessageOptions {
+  // Generate a field setter for this message.
+  optional bool field_setter = 1;
+}
+
+extend google.protobuf.MessageOptions {
+  optional MessageOptions message = 51887;
+}
+
+message FieldOptions {
+
+}
+
+extend google.protobuf.FieldOptions {
+  optional FieldOptions field = 51887;
+}
+
+message OneofOptions {
+
+}
+
+extend google.protobuf.OneofOptions {
+  optional OneofOptions oneof = 51887;
+}
+
+message EnumOptions {
+
+}
+
+extend google.protobuf.EnumOptions {
+  optional EnumOptions enum = 51887;
+}
+
+message EnumValueOptions {
+
+}
+
+extend google.protobuf.EnumValueOptions {
+  optional EnumValueOptions enum_value = 51887;
+}
+
+message ServiceOptions {
+
+}
+
+extend google.protobuf.ServiceOptions {
+  optional ServiceOptions service = 51887;
+}
+
+message MethodOptions {
+
+}
+
+extend google.protobuf.MethodOptions {
+  optional MethodOptions method = 51887;
+}
