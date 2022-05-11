@@ -28,7 +28,7 @@ func (x *MessageWithWKTs) SetFields(src *MessageWithWKTs, paths ...string) error
 		}
 		switch field {
 		default:
-			return fieldmaskplugin.FieldErrorf(x, field, "unknown field")
+			return fieldmaskplugin.FieldErrorf("MessageWithWKTs", field, "unknown field")
 		case "double_value", "doubleValue":
 			x.DoubleValue = src.DoubleValue
 		case "double_values", "doubleValues":
@@ -120,107 +120,107 @@ func (x *MessageWithOneofWKTs) SetFields(src *MessageWithOneofWKTs, paths ...str
 		}
 		switch field {
 		default:
-			return fieldmaskplugin.FieldErrorf(x, field, "unknown field")
+			return fieldmaskplugin.FieldErrorf("MessageWithOneofWKTs", field, "unknown field")
 		case "double_value", "doubleValue":
 			ov, ok := src.Value.(*MessageWithOneofWKTs_DoubleValue)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofWKTs", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "float_value", "floatValue":
 			ov, ok := src.Value.(*MessageWithOneofWKTs_FloatValue)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofWKTs", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "int32_value", "int32Value":
 			ov, ok := src.Value.(*MessageWithOneofWKTs_Int32Value)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofWKTs", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "int64_value", "int64Value":
 			ov, ok := src.Value.(*MessageWithOneofWKTs_Int64Value)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofWKTs", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "uint32_value", "uint32Value":
 			ov, ok := src.Value.(*MessageWithOneofWKTs_Uint32Value)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofWKTs", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "uint64_value", "uint64Value":
 			ov, ok := src.Value.(*MessageWithOneofWKTs_Uint64Value)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofWKTs", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "bool_value", "boolValue":
 			ov, ok := src.Value.(*MessageWithOneofWKTs_BoolValue)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofWKTs", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "string_value", "stringValue":
 			ov, ok := src.Value.(*MessageWithOneofWKTs_StringValue)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofWKTs", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "bytes_value", "bytesValue":
 			ov, ok := src.Value.(*MessageWithOneofWKTs_BytesValue)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofWKTs", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "empty_value", "emptyValue":
 			ov, ok := src.Value.(*MessageWithOneofWKTs_EmptyValue)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofWKTs", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "timestamp_value", "timestampValue":
 			ov, ok := src.Value.(*MessageWithOneofWKTs_TimestampValue)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofWKTs", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "duration_value", "durationValue":
 			ov, ok := src.Value.(*MessageWithOneofWKTs_DurationValue)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofWKTs", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "field_mask_value", "fieldMaskValue":
 			ov, ok := src.Value.(*MessageWithOneofWKTs_FieldMaskValue)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofWKTs", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "value_value", "valueValue":
 			ov, ok := src.Value.(*MessageWithOneofWKTs_ValueValue)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofWKTs", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "list_value_value", "listValueValue":
 			ov, ok := src.Value.(*MessageWithOneofWKTs_ListValueValue)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofWKTs", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "struct_value", "structValue":
 			ov, ok := src.Value.(*MessageWithOneofWKTs_StructValue)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofWKTs", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "any_value", "anyValue":
 			ov, ok := src.Value.(*MessageWithOneofWKTs_AnyValue)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofWKTs", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "value":

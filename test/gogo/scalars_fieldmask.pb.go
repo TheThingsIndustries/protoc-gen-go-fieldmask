@@ -28,7 +28,7 @@ func (x *MessageWithScalars) SetFields(src *MessageWithScalars, paths ...string)
 		}
 		switch field {
 		default:
-			return fieldmaskplugin.FieldErrorf(x, field, "unknown field")
+			return fieldmaskplugin.FieldErrorf("MessageWithScalars", field, "unknown field")
 		case "double_value", "doubleValue":
 			x.DoubleValue = src.DoubleValue
 		case "double_values", "doubleValues":
@@ -112,95 +112,95 @@ func (x *MessageWithOneofScalars) SetFields(src *MessageWithOneofScalars, paths 
 		}
 		switch field {
 		default:
-			return fieldmaskplugin.FieldErrorf(x, field, "unknown field")
+			return fieldmaskplugin.FieldErrorf("MessageWithOneofScalars", field, "unknown field")
 		case "double_value", "doubleValue":
 			ov, ok := src.Value.(*MessageWithOneofScalars_DoubleValue)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofScalars", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "float_value", "floatValue":
 			ov, ok := src.Value.(*MessageWithOneofScalars_FloatValue)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofScalars", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "int32_value", "int32Value":
 			ov, ok := src.Value.(*MessageWithOneofScalars_Int32Value)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofScalars", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "int64_value", "int64Value":
 			ov, ok := src.Value.(*MessageWithOneofScalars_Int64Value)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofScalars", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "uint32_value", "uint32Value":
 			ov, ok := src.Value.(*MessageWithOneofScalars_Uint32Value)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofScalars", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "uint64_value", "uint64Value":
 			ov, ok := src.Value.(*MessageWithOneofScalars_Uint64Value)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofScalars", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "sint32_value", "sint32Value":
 			ov, ok := src.Value.(*MessageWithOneofScalars_Sint32Value)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofScalars", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "sint64_value", "sint64Value":
 			ov, ok := src.Value.(*MessageWithOneofScalars_Sint64Value)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofScalars", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "fixed32_value", "fixed32Value":
 			ov, ok := src.Value.(*MessageWithOneofScalars_Fixed32Value)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofScalars", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "fixed64_value", "fixed64Value":
 			ov, ok := src.Value.(*MessageWithOneofScalars_Fixed64Value)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofScalars", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "sfixed32_value", "sfixed32Value":
 			ov, ok := src.Value.(*MessageWithOneofScalars_Sfixed32Value)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofScalars", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "sfixed64_value", "sfixed64Value":
 			ov, ok := src.Value.(*MessageWithOneofScalars_Sfixed64Value)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofScalars", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "bool_value", "boolValue":
 			ov, ok := src.Value.(*MessageWithOneofScalars_BoolValue)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofScalars", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "string_value", "stringValue":
 			ov, ok := src.Value.(*MessageWithOneofScalars_StringValue)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofScalars", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "bytes_value", "bytesValue":
 			ov, ok := src.Value.(*MessageWithOneofScalars_BytesValue)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Value of type %T in source struct", src.Value)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofScalars", field, "invalid Value of type %T in source struct", src.Value)
 			}
 			x.Value = ov
 		case "value":
@@ -228,7 +228,7 @@ func (x *MessageWithScalarMaps) SetFields(src *MessageWithScalarMaps, paths ...s
 		}
 		switch field {
 		default:
-			return fieldmaskplugin.FieldErrorf(x, field, "unknown field")
+			return fieldmaskplugin.FieldErrorf("MessageWithScalarMaps", field, "unknown field")
 		case "string_double_map", "stringDoubleMap":
 			x.StringDoubleMap = src.StringDoubleMap
 		case "string_float_map", "stringFloatMap":

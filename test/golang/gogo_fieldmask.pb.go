@@ -28,7 +28,7 @@ func (x *MessageWithGoGoOptions) SetFields(src *MessageWithGoGoOptions, paths ..
 		}
 		switch field {
 		default:
-			return fieldmaskplugin.FieldErrorf(x, field, "unknown field")
+			return fieldmaskplugin.FieldErrorf("MessageWithGoGoOptions", field, "unknown field")
 		case "eui_with_custom_name", "euiWithCustomName":
 			x.EuiWithCustomName = src.EuiWithCustomName
 		case "eui_with_custom_name_and_type", "euiWithCustomNameAndType":
@@ -68,7 +68,7 @@ func (x *MessageWithNullable) SetFields(src *MessageWithNullable, paths ...strin
 		}
 		switch field {
 		default:
-			return fieldmaskplugin.FieldErrorf(x, field, "unknown field")
+			return fieldmaskplugin.FieldErrorf("MessageWithNullable", field, "unknown field")
 		case "sub":
 			x.Sub = src.Sub
 		case "subs":
@@ -83,14 +83,14 @@ func (x *MessageWithNullable) SetFields(src *MessageWithNullable, paths ...strin
 		}
 		switch topLevelField {
 		default:
-			return fieldmaskplugin.FieldErrorf(x, field, "unknown field")
+			return fieldmaskplugin.FieldErrorf("MessageWithNullable", field, "unknown field")
 		case "sub":
 			if x.Sub == nil && src.Sub != nil {
 				var v SubMessage
 				x.Sub = &v
 			}
 			if err := x.Sub.SetFields(src.Sub, fieldmaskplugin.SubPathsOf(paths, topLevelField)...); err != nil {
-				return fieldmaskplugin.WrapFieldError(x, field, err)
+				return fieldmaskplugin.WrapFieldError("MessageWithNullable", field, err)
 			}
 		}
 		fset.Add(topLevelField)
@@ -115,7 +115,7 @@ func (x *MessageWithEmbedded) SetFields(src *MessageWithEmbedded, paths ...strin
 		}
 		switch field {
 		default:
-			return fieldmaskplugin.FieldErrorf(x, field, "unknown field")
+			return fieldmaskplugin.FieldErrorf("MessageWithEmbedded", field, "unknown field")
 		case "sub":
 			x.Sub = src.Sub
 		}
@@ -128,14 +128,14 @@ func (x *MessageWithEmbedded) SetFields(src *MessageWithEmbedded, paths ...strin
 		}
 		switch topLevelField {
 		default:
-			return fieldmaskplugin.FieldErrorf(x, field, "unknown field")
+			return fieldmaskplugin.FieldErrorf("MessageWithEmbedded", field, "unknown field")
 		case "sub":
 			if x.Sub == nil && src.Sub != nil {
 				var v SubMessage
 				x.Sub = &v
 			}
 			if err := x.Sub.SetFields(src.Sub, fieldmaskplugin.SubPathsOf(paths, topLevelField)...); err != nil {
-				return fieldmaskplugin.WrapFieldError(x, field, err)
+				return fieldmaskplugin.WrapFieldError("MessageWithEmbedded", field, err)
 			}
 		}
 		fset.Add(topLevelField)
@@ -160,7 +160,7 @@ func (x *MessageWithNullableEmbedded) SetFields(src *MessageWithNullableEmbedded
 		}
 		switch field {
 		default:
-			return fieldmaskplugin.FieldErrorf(x, field, "unknown field")
+			return fieldmaskplugin.FieldErrorf("MessageWithNullableEmbedded", field, "unknown field")
 		case "sub":
 			x.Sub = src.Sub
 		}
@@ -173,14 +173,14 @@ func (x *MessageWithNullableEmbedded) SetFields(src *MessageWithNullableEmbedded
 		}
 		switch topLevelField {
 		default:
-			return fieldmaskplugin.FieldErrorf(x, field, "unknown field")
+			return fieldmaskplugin.FieldErrorf("MessageWithNullableEmbedded", field, "unknown field")
 		case "sub":
 			if x.Sub == nil && src.Sub != nil {
 				var v SubMessage
 				x.Sub = &v
 			}
 			if err := x.Sub.SetFields(src.Sub, fieldmaskplugin.SubPathsOf(paths, topLevelField)...); err != nil {
-				return fieldmaskplugin.WrapFieldError(x, field, err)
+				return fieldmaskplugin.WrapFieldError("MessageWithNullableEmbedded", field, err)
 			}
 		}
 		fset.Add(topLevelField)

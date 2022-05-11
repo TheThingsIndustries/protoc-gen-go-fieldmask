@@ -87,7 +87,7 @@ func (g *generator) genFieldSetter(message *protogen.Message) { //nolint:gocyclo
 
 	// Error if we don't know the field.
 	g.P("default:")
-	g.P("return ", pp.Ident("FieldErrorf"), `(x, field, "unknown field")`)
+	g.P("return ", pp.Ident("FieldErrorf"), `("`, message.GoIdent, `", field, "unknown field")`)
 
 	for _, field := range message.Fields {
 		fieldGoName := fieldGoName(field)
@@ -104,7 +104,7 @@ func (g *generator) genFieldSetter(message *protogen.Message) { //nolint:gocyclo
 			// Note that, in order to unset the oneof, we use the name of the oneof directly.
 			g.P("ov, ok := src.", field.Oneof.GoName, ".(*", field.GoIdent.GoName, ")")
 			g.P("if !ok {")
-			g.P("return ", pp.Ident("FieldErrorf"), `(x, field, "invalid `, field.Oneof.GoName, ` of type %T in source struct", src.`, field.Oneof.GoName, ")")
+			g.P("return ", pp.Ident("FieldErrorf"), `("`, message.GoIdent, `", field, "invalid `, field.Oneof.GoName, ` of type %T in source struct", src.`, field.Oneof.GoName, ")")
 			g.P("}")
 			g.P("x.", field.Oneof.GoName, " = ov")
 		} else {
@@ -139,7 +139,7 @@ func (g *generator) genFieldSetter(message *protogen.Message) { //nolint:gocyclo
 
 		// Error if we don't know the field.
 		g.P("default:")
-		g.P("return ", pp.Ident("FieldErrorf"), `(x, field, "unknown field")`)
+		g.P("return ", pp.Ident("FieldErrorf"), `("`, message.GoIdent, `", field, "unknown field")`)
 
 		for _, field := range fieldsWithSubFields {
 			var (
@@ -166,16 +166,16 @@ func (g *generator) genFieldSetter(message *protogen.Message) { //nolint:gocyclo
 				// We assert that the oneof wrapper in the destination has the expected type.
 				g.P("xOV, ok := x.", field.Oneof.GoName, ".(*", field.GoIdent.GoName, ")")
 				g.P("if !ok {")
-				g.P("return ", pp.Ident("FieldErrorf"), `(x, field, "invalid `, field.Oneof.GoName, ` of type %T in destination struct", x.`, field.Oneof.GoName, ")")
+				g.P("return ", pp.Ident("FieldErrorf"), `("`, message.GoIdent, `", field, "invalid `, field.Oneof.GoName, ` of type %T in destination struct", x.`, field.Oneof.GoName, ")")
 				g.P("}")
 				// We assert that the oneof wrapper in the source has the expected type.
 				g.P("srcOV, ok := src.", field.Oneof.GoName, ".(*", field.GoIdent.GoName, ")")
 				g.P("if !ok {")
-				g.P("return ", pp.Ident("FieldErrorf"), `(x, field, "invalid `, field.Oneof.GoName, ` of type %T in source struct", src.`, field.Oneof.GoName, ")")
+				g.P("return ", pp.Ident("FieldErrorf"), `("`, message.GoIdent, `", field, "invalid `, field.Oneof.GoName, ` of type %T in source struct", src.`, field.Oneof.GoName, ")")
 				g.P("}")
 				// We set the sub-fields in the sub-message.
 				g.P("if err := xOV.", fieldGoName, ".SetFields(srcOV.", fieldGoName, ", ", pp.Ident("SubPathsOf"), "(paths, topLevelField)...); err != nil {")
-				g.P("return ", pp.Ident("WrapFieldError"), "(x, field, err)")
+				g.P("return ", pp.Ident("WrapFieldError"), `("`, message.GoIdent, `", field, err)`)
 				g.P("}")
 			} else if nullable {
 				// If the field is nullable and the destination is nil, but the source isn't,
@@ -186,12 +186,12 @@ func (g *generator) genFieldSetter(message *protogen.Message) { //nolint:gocyclo
 				g.P("}")
 				// We set the sub-fields in the sub-message.
 				g.P("if err := x.", fieldGoName, ".SetFields(src.", fieldGoName, ", ", pp.Ident("SubPathsOf"), "(paths, topLevelField)...); err != nil {")
-				g.P("return ", pp.Ident("WrapFieldError"), "(x, field, err)")
+				g.P("return ", pp.Ident("WrapFieldError"), `("`, message.GoIdent, `", field, err)`)
 				g.P("}")
 			} else {
 				// We set the sub-fields in the sub-message.
 				g.P("if err := x.", fieldGoName, ".SetFields(&src.", fieldGoName, ", ", pp.Ident("SubPathsOf"), "(paths, topLevelField)...); err != nil {")
-				g.P("return ", pp.Ident("WrapFieldError"), "(x, field, err)")
+				g.P("return ", pp.Ident("WrapFieldError"), `("`, message.GoIdent, `", field, err)`)
 				g.P("}")
 			}
 		}

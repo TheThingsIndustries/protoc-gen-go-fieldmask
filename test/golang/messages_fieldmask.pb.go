@@ -28,7 +28,7 @@ func (x *SubMessage) SetFields(src *SubMessage, paths ...string) error {
 		}
 		switch field {
 		default:
-			return fieldmaskplugin.FieldErrorf(x, field, "unknown field")
+			return fieldmaskplugin.FieldErrorf("SubMessage", field, "unknown field")
 		case "foo":
 			x.Foo = src.Foo
 		case "bar":
@@ -56,7 +56,7 @@ func (x *MessageWithSubMessages) SetFields(src *MessageWithSubMessages, paths ..
 		}
 		switch field {
 		default:
-			return fieldmaskplugin.FieldErrorf(x, field, "unknown field")
+			return fieldmaskplugin.FieldErrorf("MessageWithSubMessages", field, "unknown field")
 		case "a":
 			x.A = src.A
 		case "b":
@@ -71,14 +71,14 @@ func (x *MessageWithSubMessages) SetFields(src *MessageWithSubMessages, paths ..
 		}
 		switch topLevelField {
 		default:
-			return fieldmaskplugin.FieldErrorf(x, field, "unknown field")
+			return fieldmaskplugin.FieldErrorf("MessageWithSubMessages", field, "unknown field")
 		case "a":
 			if x.A == nil && src.A != nil {
 				var v SubMessage
 				x.A = &v
 			}
 			if err := x.A.SetFields(src.A, fieldmaskplugin.SubPathsOf(paths, topLevelField)...); err != nil {
-				return fieldmaskplugin.WrapFieldError(x, field, err)
+				return fieldmaskplugin.WrapFieldError("MessageWithSubMessages", field, err)
 			}
 		case "b":
 			if x.B == nil && src.B != nil {
@@ -86,7 +86,7 @@ func (x *MessageWithSubMessages) SetFields(src *MessageWithSubMessages, paths ..
 				x.B = &v
 			}
 			if err := x.B.SetFields(src.B, fieldmaskplugin.SubPathsOf(paths, topLevelField)...); err != nil {
-				return fieldmaskplugin.WrapFieldError(x, field, err)
+				return fieldmaskplugin.WrapFieldError("MessageWithSubMessages", field, err)
 			}
 		}
 		fset.Add(topLevelField)
@@ -111,17 +111,17 @@ func (x *MessageWithOneofSubMessages) SetFields(src *MessageWithOneofSubMessages
 		}
 		switch field {
 		default:
-			return fieldmaskplugin.FieldErrorf(x, field, "unknown field")
+			return fieldmaskplugin.FieldErrorf("MessageWithOneofSubMessages", field, "unknown field")
 		case "a":
 			ov, ok := src.Sub.(*MessageWithOneofSubMessages_A)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Sub of type %T in source struct", src.Sub)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofSubMessages", field, "invalid Sub of type %T in source struct", src.Sub)
 			}
 			x.Sub = ov
 		case "b":
 			ov, ok := src.Sub.(*MessageWithOneofSubMessages_B)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Sub of type %T in source struct", src.Sub)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofSubMessages", field, "invalid Sub of type %T in source struct", src.Sub)
 			}
 			x.Sub = ov
 		case "sub":
@@ -136,7 +136,7 @@ func (x *MessageWithOneofSubMessages) SetFields(src *MessageWithOneofSubMessages
 		}
 		switch topLevelField {
 		default:
-			return fieldmaskplugin.FieldErrorf(x, field, "unknown field")
+			return fieldmaskplugin.FieldErrorf("MessageWithOneofSubMessages", field, "unknown field")
 		case "a":
 			if x.Sub == nil && src.Sub != nil {
 				ov := &MessageWithOneofSubMessages_A{A: &SubMessage{}}
@@ -144,14 +144,14 @@ func (x *MessageWithOneofSubMessages) SetFields(src *MessageWithOneofSubMessages
 			}
 			xOV, ok := x.Sub.(*MessageWithOneofSubMessages_A)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Sub of type %T in destination struct", x.Sub)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofSubMessages", field, "invalid Sub of type %T in destination struct", x.Sub)
 			}
 			srcOV, ok := src.Sub.(*MessageWithOneofSubMessages_A)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Sub of type %T in source struct", src.Sub)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofSubMessages", field, "invalid Sub of type %T in source struct", src.Sub)
 			}
 			if err := xOV.A.SetFields(srcOV.A, fieldmaskplugin.SubPathsOf(paths, topLevelField)...); err != nil {
-				return fieldmaskplugin.WrapFieldError(x, field, err)
+				return fieldmaskplugin.WrapFieldError("MessageWithOneofSubMessages", field, err)
 			}
 		case "b":
 			if x.Sub == nil && src.Sub != nil {
@@ -160,14 +160,14 @@ func (x *MessageWithOneofSubMessages) SetFields(src *MessageWithOneofSubMessages
 			}
 			xOV, ok := x.Sub.(*MessageWithOneofSubMessages_B)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Sub of type %T in destination struct", x.Sub)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofSubMessages", field, "invalid Sub of type %T in destination struct", x.Sub)
 			}
 			srcOV, ok := src.Sub.(*MessageWithOneofSubMessages_B)
 			if !ok {
-				return fieldmaskplugin.FieldErrorf(x, field, "invalid Sub of type %T in source struct", src.Sub)
+				return fieldmaskplugin.FieldErrorf("MessageWithOneofSubMessages", field, "invalid Sub of type %T in source struct", src.Sub)
 			}
 			if err := xOV.B.SetFields(srcOV.B, fieldmaskplugin.SubPathsOf(paths, topLevelField)...); err != nil {
-				return fieldmaskplugin.WrapFieldError(x, field, err)
+				return fieldmaskplugin.WrapFieldError("MessageWithOneofSubMessages", field, err)
 			}
 		case "sub":
 			if err := x.SetFields(src, fieldmaskplugin.SubPathsOf(paths, topLevelField)...); err != nil {

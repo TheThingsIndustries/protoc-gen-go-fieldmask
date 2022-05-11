@@ -38,21 +38,21 @@ func (fs FieldSet) Contains(field string) bool {
 
 // FieldError indicates an error setting a field in destination.
 type FieldError struct {
+	Message string
 	Field       string
-	Destination interface{}
 	Inner       error
 }
 
 func (e *FieldError) Error() string {
 	if e.Inner == nil {
 		return fmt.Sprintf(
-			"can not set field %q in %T",
-			e.Field, e.Destination,
+			"invalid field %q in %s",
+			e.Field, e.Message,
 		)
 	}
 	return fmt.Sprintf(
-		"can not set field %q in %T: %v",
-		e.Field, e.Destination, e.Inner,
+		"invalid field %q in %s: %v",
+		e.Field, e.Message, e.Inner,
 	)
 }
 
@@ -61,17 +61,17 @@ func (e *FieldError) Unwrap() error {
 }
 
 // WrapFieldError returns a *FieldError that wraps err.
-func WrapFieldError(dst interface{}, field string, err error) error {
+func WrapFieldError(message, field string, err error) error {
 	return &FieldError{
-		Destination: dst,
+		Message: message,
 		Field:       field,
 		Inner:       err,
 	}
 }
 
 // FieldErrorf returns a *FieldError that wraps fmt.Errorf(format, a...).
-func FieldErrorf(dst interface{}, field, format string, a ...interface{}) error {
-	return WrapFieldError(dst, field, fmt.Errorf(format, a...))
+func FieldErrorf(message, field, format string, a ...interface{}) error {
+	return WrapFieldError(message, field, fmt.Errorf(format, a...))
 }
 
 func depth(path string) int {
