@@ -25,8 +25,7 @@ var fullMessageWithGoGoOptions = &MessageWithGoGoOptions{
 func TestMessageWithGoGoOptions(t *testing.T) {
 	var dst MessageWithGoGoOptions
 
-	err := dst.SetFields(
-		fullMessageWithGoGoOptions,
+	paths := []string{
 		"eui_with_custom_name",
 		"eui_with_custom_name_and_type",
 		"non_nullable_eui_with_custom_name_and_type",
@@ -35,6 +34,15 @@ func TestMessageWithGoGoOptions(t *testing.T) {
 		"non_nullable_duration",
 		"timestamp",
 		"non_nullable_timestamp",
+	}
+
+	expectStringSlice(t, nil, dst.FieldPaths(0))
+	expectStringSlice(t, paths, dst.FieldPaths(1))
+	expectStringSlice(t, paths, dst.FieldPaths(2))
+
+	err := dst.SetFields(
+		fullMessageWithGoGoOptions,
+		paths...,
 	)
 	if err != nil {
 		t.Fatal(err)

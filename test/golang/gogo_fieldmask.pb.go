@@ -11,6 +11,23 @@ import (
 	fieldmaskplugin "github.com/TheThingsIndustries/protoc-gen-go-fieldmask/fieldmaskplugin"
 )
 
+// FieldPaths returns the field paths up to the given maximum depth.
+func (x *MessageWithGoGoOptions) FieldPaths(maxDepth int) []string {
+	if maxDepth == 0 {
+		return nil
+	}
+	return []string{
+		"eui_with_custom_name",
+		"eui_with_custom_name_and_type",
+		"non_nullable_eui_with_custom_name_and_type",
+		"euis_with_custom_name_and_type",
+		"duration",
+		"non_nullable_duration",
+		"timestamp",
+		"non_nullable_timestamp",
+	}
+}
+
 // SetFields sets the given fields from src into x.
 func (x *MessageWithGoGoOptions) SetFields(src *MessageWithGoGoOptions, paths ...string) error {
 	switch {
@@ -49,6 +66,24 @@ func (x *MessageWithGoGoOptions) SetFields(src *MessageWithGoGoOptions, paths ..
 		fset.Add(field)
 	}
 	return nil
+}
+
+// FieldPaths returns the field paths up to the given maximum depth.
+func (x *MessageWithNullable) FieldPaths(maxDepth int) []string {
+	if maxDepth == 0 {
+		return nil
+	}
+	if maxDepth > 1 {
+		return fieldmaskplugin.Flatten([][]string{
+			{"sub"},
+			fieldmaskplugin.PrefixPaths(((*SubMessage)(nil)).FieldPaths(maxDepth-1), "sub"),
+			{"subs"},
+		})
+	}
+	return []string{
+		"sub",
+		"subs",
+	}
 }
 
 // SetFields sets the given fields from src into x.
@@ -98,6 +133,22 @@ func (x *MessageWithNullable) SetFields(src *MessageWithNullable, paths ...strin
 	return nil
 }
 
+// FieldPaths returns the field paths up to the given maximum depth.
+func (x *MessageWithEmbedded) FieldPaths(maxDepth int) []string {
+	if maxDepth == 0 {
+		return nil
+	}
+	if maxDepth > 1 {
+		return fieldmaskplugin.Flatten([][]string{
+			{"sub"},
+			fieldmaskplugin.PrefixPaths(((*SubMessage)(nil)).FieldPaths(maxDepth-1), "sub"),
+		})
+	}
+	return []string{
+		"sub",
+	}
+}
+
 // SetFields sets the given fields from src into x.
 func (x *MessageWithEmbedded) SetFields(src *MessageWithEmbedded, paths ...string) error {
 	switch {
@@ -141,6 +192,22 @@ func (x *MessageWithEmbedded) SetFields(src *MessageWithEmbedded, paths ...strin
 		fset.Add(topLevelField)
 	}
 	return nil
+}
+
+// FieldPaths returns the field paths up to the given maximum depth.
+func (x *MessageWithNullableEmbedded) FieldPaths(maxDepth int) []string {
+	if maxDepth == 0 {
+		return nil
+	}
+	if maxDepth > 1 {
+		return fieldmaskplugin.Flatten([][]string{
+			{"sub"},
+			fieldmaskplugin.PrefixPaths(((*SubMessage)(nil)).FieldPaths(maxDepth-1), "sub"),
+		})
+	}
+	return []string{
+		"sub",
+	}
 }
 
 // SetFields sets the given fields from src into x.

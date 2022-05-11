@@ -173,42 +173,33 @@ var fullMessageWithWKTs = &MessageWithWKTs{
 func TestMessageWithWKTs(t *testing.T) {
 	var dst MessageWithWKTs
 
+	paths := []string{
+		"double_value", "double_values",
+		"float_value", "float_values",
+		"int32_value", "int32_values",
+		"int64_value", "int64_values",
+		"uint32_value", "uint32_values",
+		"uint64_value", "uint64_values",
+		"bool_value", "bool_values",
+		"string_value", "string_values",
+		"bytes_value", "bytes_values",
+		"empty_value", "empty_values",
+		"timestamp_value", "timestamp_values",
+		"duration_value", "duration_values",
+		"field_mask_value", "field_mask_values",
+		"value_value", "value_values",
+		"list_value_value", "list_value_values",
+		"struct_value", "struct_values",
+		"any_value", "any_values",
+	}
+
+	expectStringSlice(t, nil, dst.FieldPaths(0))
+	expectStringSlice(t, paths, dst.FieldPaths(1))
+	expectStringSlice(t, paths, dst.FieldPaths(2))
+
 	err := dst.SetFields(
 		fullMessageWithWKTs,
-		"double_value",
-		"double_values",
-		"float_value",
-		"float_values",
-		"int32_value",
-		"int32_values",
-		"int64_value",
-		"int64_values",
-		"uint32_value",
-		"uint32_values",
-		"uint64_value",
-		"uint64_values",
-		"bool_value",
-		"bool_values",
-		"string_value",
-		"string_values",
-		"bytes_value",
-		"bytes_values",
-		"empty_value",
-		"empty_values",
-		"timestamp_value",
-		"timestamp_values",
-		"duration_value",
-		"duration_values",
-		"field_mask_value",
-		"field_mask_values",
-		"value_value",
-		"value_values",
-		"list_value_value",
-		"list_value_values",
-		"struct_value",
-		"struct_values",
-		"any_value",
-		"any_values",
+		paths...,
 	)
 	if err != nil {
 		t.Fatal(err)
@@ -369,6 +360,32 @@ var testMessagesWithOneofWKTs = []struct {
 }
 
 func TestMessageWithOneofWKTs(t *testing.T) {
+	var dst MessageWithOneofWKTs
+
+	paths := []string{
+		"double_value",
+		"float_value",
+		"int32_value",
+		"int64_value",
+		"uint32_value",
+		"uint64_value",
+		"bool_value",
+		"string_value",
+		"bytes_value",
+		"empty_value",
+		"timestamp_value",
+		"duration_value",
+		"field_mask_value",
+		"value_value",
+		"list_value_value",
+		"struct_value",
+		"any_value",
+	}
+
+	expectStringSlice(t, nil, dst.FieldPaths(0))
+	expectStringSlice(t, paths, dst.FieldPaths(1))
+	expectStringSlice(t, paths, dst.FieldPaths(2))
+
 	for _, tt := range testMessagesWithOneofWKTs {
 		t.Run(tt.name, func(t *testing.T) {
 			var dst MessageWithOneofWKTs

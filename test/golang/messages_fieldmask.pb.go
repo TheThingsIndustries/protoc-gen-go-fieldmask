@@ -11,6 +11,27 @@ import (
 	fieldmaskplugin "github.com/TheThingsIndustries/protoc-gen-go-fieldmask/fieldmaskplugin"
 )
 
+// FieldPaths returns the field paths up to the given maximum depth.
+func (x *MessageWithoutFieldSetter) FieldPaths(maxDepth int) []string {
+	if maxDepth == 0 {
+		return nil
+	}
+	return []string{
+		"message",
+	}
+}
+
+// FieldPaths returns the field paths up to the given maximum depth.
+func (x *SubMessage) FieldPaths(maxDepth int) []string {
+	if maxDepth == 0 {
+		return nil
+	}
+	return []string{
+		"foo",
+		"bar",
+	}
+}
+
 // SetFields sets the given fields from src into x.
 func (x *SubMessage) SetFields(src *SubMessage, paths ...string) error {
 	switch {
@@ -37,6 +58,25 @@ func (x *SubMessage) SetFields(src *SubMessage, paths ...string) error {
 		fset.Add(field)
 	}
 	return nil
+}
+
+// FieldPaths returns the field paths up to the given maximum depth.
+func (x *MessageWithSubMessages) FieldPaths(maxDepth int) []string {
+	if maxDepth == 0 {
+		return nil
+	}
+	if maxDepth > 1 {
+		return fieldmaskplugin.Flatten([][]string{
+			{"a"},
+			fieldmaskplugin.PrefixPaths(((*SubMessage)(nil)).FieldPaths(maxDepth-1), "a"),
+			{"b"},
+			fieldmaskplugin.PrefixPaths(((*SubMessage)(nil)).FieldPaths(maxDepth-1), "b"),
+		})
+	}
+	return []string{
+		"a",
+		"b",
+	}
 }
 
 // SetFields sets the given fields from src into x.
@@ -92,6 +132,25 @@ func (x *MessageWithSubMessages) SetFields(src *MessageWithSubMessages, paths ..
 		fset.Add(topLevelField)
 	}
 	return nil
+}
+
+// FieldPaths returns the field paths up to the given maximum depth.
+func (x *MessageWithOneofSubMessages) FieldPaths(maxDepth int) []string {
+	if maxDepth == 0 {
+		return nil
+	}
+	if maxDepth > 1 {
+		return fieldmaskplugin.Flatten([][]string{
+			{"a"},
+			fieldmaskplugin.PrefixPaths(((*SubMessage)(nil)).FieldPaths(maxDepth-1), "a"),
+			{"b"},
+			fieldmaskplugin.PrefixPaths(((*SubMessage)(nil)).FieldPaths(maxDepth-1), "b"),
+		})
+	}
+	return []string{
+		"a",
+		"b",
+	}
 }
 
 // SetFields sets the given fields from src into x.

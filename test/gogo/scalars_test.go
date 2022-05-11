@@ -45,38 +45,31 @@ var fullMessageWithScalars = &MessageWithScalars{
 func TestMessageWithScalars(t *testing.T) {
 	var dst MessageWithScalars
 
+	paths := []string{
+		"double_value", "double_values",
+		"float_value", "float_values",
+		"int32_value", "int32_values",
+		"int64_value", "int64_values",
+		"uint32_value", "uint32_values",
+		"uint64_value", "uint64_values",
+		"sint32_value", "sint32_values",
+		"sint64_value", "sint64_values",
+		"fixed32_value", "fixed32_values",
+		"fixed64_value", "fixed64_values",
+		"sfixed32_value", "sfixed32_values",
+		"sfixed64_value", "sfixed64_values",
+		"bool_value", "bool_values",
+		"string_value", "string_values",
+		"bytes_value", "bytes_values",
+	}
+
+	expectStringSlice(t, nil, dst.FieldPaths(0))
+	expectStringSlice(t, paths, dst.FieldPaths(1))
+	expectStringSlice(t, paths, dst.FieldPaths(2))
+
 	err := dst.SetFields(
 		fullMessageWithScalars,
-		"double_value",
-		"double_values",
-		"float_value",
-		"float_values",
-		"int32_value",
-		"int32_values",
-		"int64_value",
-		"int64_values",
-		"uint32_value",
-		"uint32_values",
-		"uint64_value",
-		"uint64_values",
-		"sint32_value",
-		"sint32_values",
-		"sint64_value",
-		"sint64_values",
-		"fixed32_value",
-		"fixed32_values",
-		"fixed64_value",
-		"fixed64_values",
-		"sfixed32_value",
-		"sfixed32_values",
-		"sfixed64_value",
-		"sfixed64_values",
-		"bool_value",
-		"bool_values",
-		"string_value",
-		"string_values",
-		"bytes_value",
-		"bytes_values",
+		paths...,
 	)
 	if err != nil {
 		t.Fatal(err)
@@ -204,6 +197,30 @@ var testMessagesWithOneofScalars = []struct {
 }
 
 func TestMessageWithOneofScalars(t *testing.T) {
+	var dst MessageWithOneofScalars
+
+	paths := []string{
+		"double_value",
+		"float_value",
+		"int32_value",
+		"int64_value",
+		"uint32_value",
+		"uint64_value",
+		"sint32_value",
+		"sint64_value",
+		"fixed32_value",
+		"fixed64_value",
+		"sfixed32_value",
+		"sfixed64_value",
+		"bool_value",
+		"string_value",
+		"bytes_value",
+	}
+
+	expectStringSlice(t, nil, dst.FieldPaths(0))
+	expectStringSlice(t, paths, dst.FieldPaths(1))
+	expectStringSlice(t, paths, dst.FieldPaths(2))
+
 	for _, tt := range testMessagesWithOneofScalars {
 		t.Run(tt.name, func(t *testing.T) {
 			var dst MessageWithOneofScalars

@@ -11,6 +11,45 @@ import (
 	fieldmaskplugin "github.com/TheThingsIndustries/protoc-gen-go-fieldmask/fieldmaskplugin"
 )
 
+// FieldPaths returns the field paths up to the given maximum depth.
+func (x *MessageWithScalars) FieldPaths(maxDepth int) []string {
+	if maxDepth == 0 {
+		return nil
+	}
+	return []string{
+		"double_value",
+		"double_values",
+		"float_value",
+		"float_values",
+		"int32_value",
+		"int32_values",
+		"int64_value",
+		"int64_values",
+		"uint32_value",
+		"uint32_values",
+		"uint64_value",
+		"uint64_values",
+		"sint32_value",
+		"sint32_values",
+		"sint64_value",
+		"sint64_values",
+		"fixed32_value",
+		"fixed32_values",
+		"fixed64_value",
+		"fixed64_values",
+		"sfixed32_value",
+		"sfixed32_values",
+		"sfixed64_value",
+		"sfixed64_values",
+		"bool_value",
+		"bool_values",
+		"string_value",
+		"string_values",
+		"bytes_value",
+		"bytes_values",
+	}
+}
+
 // SetFields sets the given fields from src into x.
 func (x *MessageWithScalars) SetFields(src *MessageWithScalars, paths ...string) error {
 	switch {
@@ -93,6 +132,30 @@ func (x *MessageWithScalars) SetFields(src *MessageWithScalars, paths ...string)
 		fset.Add(field)
 	}
 	return nil
+}
+
+// FieldPaths returns the field paths up to the given maximum depth.
+func (x *MessageWithOneofScalars) FieldPaths(maxDepth int) []string {
+	if maxDepth == 0 {
+		return nil
+	}
+	return []string{
+		"double_value",
+		"float_value",
+		"int32_value",
+		"int64_value",
+		"uint32_value",
+		"uint64_value",
+		"sint32_value",
+		"sint64_value",
+		"fixed32_value",
+		"fixed64_value",
+		"sfixed32_value",
+		"sfixed64_value",
+		"bool_value",
+		"string_value",
+		"bytes_value",
+	}
 }
 
 // SetFields sets the given fields from src into x.
@@ -209,6 +272,41 @@ func (x *MessageWithOneofScalars) SetFields(src *MessageWithOneofScalars, paths 
 		fset.Add(field)
 	}
 	return nil
+}
+
+// FieldPaths returns the field paths up to the given maximum depth.
+func (x *MessageWithScalarMaps) FieldPaths(maxDepth int) []string {
+	if maxDepth == 0 {
+		return nil
+	}
+	return []string{
+		"string_double_map",
+		"string_float_map",
+		"string_int32_map",
+		"int32_string_map",
+		"string_int64_map",
+		"int64_string_map",
+		"string_uint32_map",
+		"uint32_string_map",
+		"string_uint64_map",
+		"uint64_string_map",
+		"string_sint32_map",
+		"sint32_string_map",
+		"string_sint64_map",
+		"sint64_string_map",
+		"string_fixed32_map",
+		"fixed32_string_map",
+		"string_fixed64_map",
+		"fixed64_string_map",
+		"string_sfixed32_map",
+		"sfixed32_string_map",
+		"string_sfixed64_map",
+		"sfixed64_string_map",
+		"string_bool_map",
+		"bool_string_map",
+		"string_string_map",
+		"string_bytes_map",
+	}
 }
 
 // SetFields sets the given fields from src into x.

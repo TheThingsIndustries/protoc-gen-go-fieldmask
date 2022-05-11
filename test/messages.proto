@@ -9,7 +9,7 @@ package thethings.fieldmask.test;
 
 option go_package = "github.com/TheThingsIndustries/protoc-gen-go-fieldmask/test";
 
-option (thethings.fieldmask.file) = { field_setter_all: true };
+option (thethings.fieldmask.file) = { field_paths_all: true, field_setter_all: true };
 
 message MessageWithoutFieldSetter {
   option (thethings.fieldmask.message) = { field_setter: false };

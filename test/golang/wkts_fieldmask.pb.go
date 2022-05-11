@@ -11,6 +11,49 @@ import (
 	fieldmaskplugin "github.com/TheThingsIndustries/protoc-gen-go-fieldmask/fieldmaskplugin"
 )
 
+// FieldPaths returns the field paths up to the given maximum depth.
+func (x *MessageWithWKTs) FieldPaths(maxDepth int) []string {
+	if maxDepth == 0 {
+		return nil
+	}
+	return []string{
+		"double_value",
+		"double_values",
+		"float_value",
+		"float_values",
+		"int32_value",
+		"int32_values",
+		"int64_value",
+		"int64_values",
+		"uint32_value",
+		"uint32_values",
+		"uint64_value",
+		"uint64_values",
+		"bool_value",
+		"bool_values",
+		"string_value",
+		"string_values",
+		"bytes_value",
+		"bytes_values",
+		"empty_value",
+		"empty_values",
+		"timestamp_value",
+		"timestamp_values",
+		"duration_value",
+		"duration_values",
+		"field_mask_value",
+		"field_mask_values",
+		"value_value",
+		"value_values",
+		"list_value_value",
+		"list_value_values",
+		"struct_value",
+		"struct_values",
+		"any_value",
+		"any_values",
+	}
+}
+
 // SetFields sets the given fields from src into x.
 func (x *MessageWithWKTs) SetFields(src *MessageWithWKTs, paths ...string) error {
 	switch {
@@ -101,6 +144,32 @@ func (x *MessageWithWKTs) SetFields(src *MessageWithWKTs, paths ...string) error
 		fset.Add(field)
 	}
 	return nil
+}
+
+// FieldPaths returns the field paths up to the given maximum depth.
+func (x *MessageWithOneofWKTs) FieldPaths(maxDepth int) []string {
+	if maxDepth == 0 {
+		return nil
+	}
+	return []string{
+		"double_value",
+		"float_value",
+		"int32_value",
+		"int64_value",
+		"uint32_value",
+		"uint64_value",
+		"bool_value",
+		"string_value",
+		"bytes_value",
+		"empty_value",
+		"timestamp_value",
+		"duration_value",
+		"field_mask_value",
+		"value_value",
+		"list_value_value",
+		"struct_value",
+		"any_value",
+	}
 }
 
 // SetFields sets the given fields from src into x.

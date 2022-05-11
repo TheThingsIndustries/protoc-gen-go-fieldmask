@@ -6,6 +6,9 @@
 
 The Things Stack works a lot with fieldmasks. This plugin generates methods that help us work with those field masks:
 
+- A `FieldPaths` method that lets us get the full list of field paths supported by the message (and its sub-messages).  
+    For a specific message: `(thethings.fieldmask.message) = { field_paths: true }`  
+    For the entire file: `option (thethings.fieldmask.file) = { field_paths_all: true }`
 - A `SetFields` method that lets us set fields specified by such a field mask from a source struct into a destination struct.  
     For a specific message: `(thethings.fieldmask.message) = { field_setter: true }`  
     For the entire file: `option (thethings.fieldmask.file) = { field_setters_all: true }`
@@ -22,12 +25,19 @@ package thethings.fieldmask.example;
 option go_package = "github.com/TheThingsIndustries/protoc-gen-go-fieldmask/example";
 
 option (thethings.fieldmask.file) = {
+  field_paths_all: true,     // Generate FieldPaths methods for everything in the file.
   field_setters_all: true,   // Generate field setters for everything in the file.
 };
 
 message SomeMessage {
   string some_field = 1;
   string other_field = 2;
+}
+
+message MessageWithoutFieldPathsMethod {
+  option (thethings.fieldmask.message) = { field_paths: false };
+
+  string some_field = 1;
 }
 
 message MessageWithoutFieldSetter {

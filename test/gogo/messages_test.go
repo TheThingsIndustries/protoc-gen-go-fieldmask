@@ -23,6 +23,11 @@ var fullMessageWithSubMessages = &MessageWithSubMessages{
 func TestMessageWithSubMessages(t *testing.T) {
 	var dst MessageWithSubMessages
 
+	expectStringSlice(t, nil, dst.FieldPaths(0))
+	expectStringSlice(t, []string{"a", "b"}, dst.FieldPaths(1))
+	expectStringSlice(t, []string{"a", "a.foo", "a.bar", "b", "b.foo", "b.bar"}, dst.FieldPaths(2))
+	expectStringSlice(t, []string{"a", "a.foo", "a.bar", "b", "b.foo", "b.bar"}, dst.FieldPaths(3))
+
 	err := dst.SetFields(
 		fullMessageWithSubMessages,
 		"a",
@@ -85,6 +90,13 @@ var testMessagesWithOneofSubMessages = []struct {
 }
 
 func TestMessageWithOneofSubMessages(t *testing.T) {
+	var dst MessageWithOneofSubMessages
+
+	expectStringSlice(t, nil, dst.FieldPaths(0))
+	expectStringSlice(t, []string{"a", "b"}, dst.FieldPaths(1))
+	expectStringSlice(t, []string{"a", "a.foo", "a.bar", "b", "b.foo", "b.bar"}, dst.FieldPaths(2))
+	expectStringSlice(t, []string{"a", "a.foo", "a.bar", "b", "b.foo", "b.bar"}, dst.FieldPaths(3))
+
 	for _, tt := range testMessagesWithOneofSubMessages {
 		t.Run(tt.name, func(t *testing.T) {
 			dst := tt.dst
