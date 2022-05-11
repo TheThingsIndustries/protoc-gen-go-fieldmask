@@ -16,9 +16,15 @@ import "google/protobuf/descriptor.proto";
 // https://github.com/protocolbuffers/protobuf/blob/master/docs/options.md.
 
 message FileOptions {
+  // Generate FieldPaths methods for all messages in this file.
+  // Message options can be used to override this.
+  optional bool field_paths_all = 1;
+  // Generate NormalizeFieldPaths methods for all messages in this file.
+  // Message options can be used to override this.
+  optional bool field_path_normalizer_all = 2;
   // Generate field setters for all messages and enums in this file.
   // Message options can be used to override this.
-  optional bool field_setter_all = 1;
+  optional bool field_setter_all = 3;
 }
 
 extend google.protobuf.FileOptions {
@@ -26,8 +32,12 @@ extend google.protobuf.FileOptions {
 }
 
 message MessageOptions {
+  // Generate FieldPaths method for this message.
+  optional bool field_paths = 1;
+  // Generate a NormalizeFieldPaths for this message.
+  optional bool field_path_normalizer = 2;
   // Generate a field setter for this message.
-  optional bool field_setter = 1;
+  optional bool field_setter = 3;
 }
 
 extend google.protobuf.MessageOptions {
