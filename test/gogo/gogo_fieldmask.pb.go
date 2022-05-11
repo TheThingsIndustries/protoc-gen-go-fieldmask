@@ -21,7 +21,7 @@ func (x *MessageWithGoGoOptions) SetFields(src *MessageWithGoGoOptions, paths ..
 	case src == nil:
 		src = &MessageWithGoGoOptions{}
 	}
-	fset := make(fieldmaskplugin.FieldSet)
+	fset := make(fieldmaskplugin.FieldSet, 8)
 	for _, field := range fieldmaskplugin.TopLevelPaths(paths) {
 		if fset.Contains(field) {
 			continue
@@ -61,7 +61,7 @@ func (x *MessageWithNullable) SetFields(src *MessageWithNullable, paths ...strin
 	case src == nil:
 		src = &MessageWithNullable{}
 	}
-	fset := make(fieldmaskplugin.FieldSet)
+	fset := make(fieldmaskplugin.FieldSet, 2)
 	for _, field := range fieldmaskplugin.TopLevelPaths(paths) {
 		if fset.Contains(field) {
 			continue
@@ -104,7 +104,7 @@ func (x *MessageWithEmbedded) SetFields(src *MessageWithEmbedded, paths ...strin
 	case src == nil:
 		src = &MessageWithEmbedded{}
 	}
-	fset := make(fieldmaskplugin.FieldSet)
+	fset := make(fieldmaskplugin.FieldSet, 1)
 	for _, field := range fieldmaskplugin.TopLevelPaths(paths) {
 		if fset.Contains(field) {
 			continue
@@ -149,7 +149,7 @@ func (x *MessageWithNullableEmbedded) SetFields(src *MessageWithNullableEmbedded
 	case src == nil:
 		src = &MessageWithNullableEmbedded{}
 	}
-	fset := make(fieldmaskplugin.FieldSet)
+	fset := make(fieldmaskplugin.FieldSet, 1)
 	for _, field := range fieldmaskplugin.TopLevelPaths(paths) {
 		if fset.Contains(field) {
 			continue

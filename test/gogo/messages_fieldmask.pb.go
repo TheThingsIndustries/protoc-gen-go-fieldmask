@@ -21,7 +21,7 @@ func (x *SubMessage) SetFields(src *SubMessage, paths ...string) error {
 	case src == nil:
 		src = &SubMessage{}
 	}
-	fset := make(fieldmaskplugin.FieldSet)
+	fset := make(fieldmaskplugin.FieldSet, 2)
 	for _, field := range fieldmaskplugin.TopLevelPaths(paths) {
 		if fset.Contains(field) {
 			continue
@@ -49,7 +49,7 @@ func (x *MessageWithSubMessages) SetFields(src *MessageWithSubMessages, paths ..
 	case src == nil:
 		src = &MessageWithSubMessages{}
 	}
-	fset := make(fieldmaskplugin.FieldSet)
+	fset := make(fieldmaskplugin.FieldSet, 2)
 	for _, field := range fieldmaskplugin.TopLevelPaths(paths) {
 		if fset.Contains(field) {
 			continue
@@ -104,7 +104,7 @@ func (x *MessageWithOneofSubMessages) SetFields(src *MessageWithOneofSubMessages
 	case src == nil:
 		src = &MessageWithOneofSubMessages{}
 	}
-	fset := make(fieldmaskplugin.FieldSet)
+	fset := make(fieldmaskplugin.FieldSet, 3)
 	for _, field := range fieldmaskplugin.TopLevelPaths(paths) {
 		if fset.Contains(field) {
 			continue

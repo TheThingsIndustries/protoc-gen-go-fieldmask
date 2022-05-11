@@ -21,7 +21,7 @@ func (x *MessageWithWKTs) SetFields(src *MessageWithWKTs, paths ...string) error
 	case src == nil:
 		src = &MessageWithWKTs{}
 	}
-	fset := make(fieldmaskplugin.FieldSet)
+	fset := make(fieldmaskplugin.FieldSet, 34)
 	for _, field := range fieldmaskplugin.TopLevelPaths(paths) {
 		if fset.Contains(field) {
 			continue
@@ -113,7 +113,7 @@ func (x *MessageWithOneofWKTs) SetFields(src *MessageWithOneofWKTs, paths ...str
 	case src == nil:
 		src = &MessageWithOneofWKTs{}
 	}
-	fset := make(fieldmaskplugin.FieldSet)
+	fset := make(fieldmaskplugin.FieldSet, 18)
 	for _, field := range fieldmaskplugin.TopLevelPaths(paths) {
 		if fset.Contains(field) {
 			continue

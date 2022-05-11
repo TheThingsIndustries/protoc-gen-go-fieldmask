@@ -21,7 +21,7 @@ func (x *MessageWithScalars) SetFields(src *MessageWithScalars, paths ...string)
 	case src == nil:
 		src = &MessageWithScalars{}
 	}
-	fset := make(fieldmaskplugin.FieldSet)
+	fset := make(fieldmaskplugin.FieldSet, 30)
 	for _, field := range fieldmaskplugin.TopLevelPaths(paths) {
 		if fset.Contains(field) {
 			continue
@@ -105,7 +105,7 @@ func (x *MessageWithOneofScalars) SetFields(src *MessageWithOneofScalars, paths 
 	case src == nil:
 		src = &MessageWithOneofScalars{}
 	}
-	fset := make(fieldmaskplugin.FieldSet)
+	fset := make(fieldmaskplugin.FieldSet, 16)
 	for _, field := range fieldmaskplugin.TopLevelPaths(paths) {
 		if fset.Contains(field) {
 			continue
@@ -221,7 +221,7 @@ func (x *MessageWithScalarMaps) SetFields(src *MessageWithScalarMaps, paths ...s
 	case src == nil:
 		src = &MessageWithScalarMaps{}
 	}
-	fset := make(fieldmaskplugin.FieldSet)
+	fset := make(fieldmaskplugin.FieldSet, 26)
 	for _, field := range fieldmaskplugin.TopLevelPaths(paths) {
 		if fset.Contains(field) {
 			continue

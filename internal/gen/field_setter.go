@@ -72,7 +72,7 @@ func (g *generator) genFieldSetter(message *protogen.Message) { //nolint:gocyclo
 	g.P("}") // end switch
 
 	// This is the set of fields we'll use to make sure that we don't try setting the same field twice.
-	g.P("fset := make(", pp.Ident("FieldSet"), ")")
+	g.P("fset := make(", pp.Ident("FieldSet"), ", ", len(message.Fields)+len(message.Oneofs), ")")
 
 	// We first look at exact fields (without sub-fields).
 	// That way, if paths contains both the field, and sub-fields, we can skip the logic for sub-paths.
