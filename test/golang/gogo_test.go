@@ -6,7 +6,7 @@ package test_test
 import (
 	"testing"
 
-	. "github.com/TheThingsIndustries/protoc-gen-go-field-setters/test/golang"
+	. "github.com/TheThingsIndustries/protoc-gen-go-fieldmask/test/golang"
 )
 
 var fullMessageWithGoGoOptions = &MessageWithGoGoOptions{

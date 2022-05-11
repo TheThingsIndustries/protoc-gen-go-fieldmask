@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	. "github.com/TheThingsIndustries/protoc-gen-go-field-setters/test/gogo"
+	. "github.com/TheThingsIndustries/protoc-gen-go-fieldmask/test/gogo"
 	"github.com/gogo/protobuf/proto"
 	"github.com/gogo/protobuf/types"
 )

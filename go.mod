@@ -1,4 +1,4 @@
-module github.com/TheThingsIndustries/protoc-gen-go-field-setters
+module github.com/TheThingsIndustries/protoc-gen-go-fieldmask
 
 go 1.17
 

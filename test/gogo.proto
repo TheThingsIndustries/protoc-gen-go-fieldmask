@@ -10,11 +10,11 @@ import "messages.proto";
 import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
 
-package thethings.fieldsetters.test;
+package thethings.fieldmask.test;
 
-option go_package = "github.com/TheThingsIndustries/protoc-gen-go-field-setters/test";
+option go_package = "github.com/TheThingsIndustries/protoc-gen-go-fieldmask/test";
 
-option (thethings.fieldsetters.file) = { field_setter_all: true };
+option (thethings.fieldmask.file) = { field_setter_all: true };
 
 message MessageWithGoGoOptions {
   bytes eui_with_custom_name = 1 [
@@ -23,18 +23,18 @@ message MessageWithGoGoOptions {
 
   bytes eui_with_custom_name_and_type = 2 [
     (gogoproto.customname) = "EUIWithCustomNameAndType",
-    (gogoproto.customtype) = "github.com/TheThingsIndustries/protoc-gen-go-field-setters/test/types.EUI64"
+    (gogoproto.customtype) = "github.com/TheThingsIndustries/protoc-gen-go-fieldmask/test/types.EUI64"
   ];
 
   bytes non_nullable_eui_with_custom_name_and_type = 3 [
     (gogoproto.customname) = "NonNullableEUIWithCustomNameAndType",
-    (gogoproto.customtype) = "github.com/TheThingsIndustries/protoc-gen-go-field-setters/test/types.EUI64",
+    (gogoproto.customtype) = "github.com/TheThingsIndustries/protoc-gen-go-fieldmask/test/types.EUI64",
     (gogoproto.nullable) = false
   ];
 
   repeated bytes euis_with_custom_name_and_type = 4 [
     (gogoproto.customname) = "EUIsWithCustomNameAndType",
-    (gogoproto.customtype) = "github.com/TheThingsIndustries/protoc-gen-go-field-setters/test/types.EUI64"
+    (gogoproto.customtype) = "github.com/TheThingsIndustries/protoc-gen-go-fieldmask/test/types.EUI64"
   ];
 
   google.protobuf.Duration duration = 5 [(gogoproto.stdduration) = true];

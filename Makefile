@@ -11,41 +11,41 @@ clean:
 	rm -f ./annotations/*.pb.go
 	rm -f ./test/*/*.pb.go
 
-.dev/protoc-gen-go-field-setters/annotations.proto: annotations.proto
+.dev/protoc-gen-go-fieldmask/annotations.proto: annotations.proto
 	mkdir -p $(shell dirname $@)
 	cp $< $@
 
-annotations/annotations.pb.go: .dev/protoc-gen-go-field-setters/annotations.proto .dev/golangproto/bin/protoc .dev/golangproto/bin/protoc-gen-go
-	PATH="$$PWD/.bin:$$PWD/.dev/golangproto/bin:$$PATH" protoc -I .dev --go_opt=module=github.com/TheThingsIndustries/protoc-gen-go-field-setters --go_out=./ $<
+annotations/annotations.pb.go: .dev/protoc-gen-go-fieldmask/annotations.proto .dev/golangproto/bin/protoc .dev/golangproto/bin/protoc-gen-go
+	PATH="$$PWD/.bin:$$PWD/.dev/golangproto/bin:$$PATH" protoc -I .dev --go_opt=module=github.com/TheThingsIndustries/protoc-gen-go-fieldmask --go_out=./ $<
 
 internal/gogoproto/gogo.pb.go: internal/gogoproto/gogo.proto .dev/golangproto/bin/protoc .dev/golangproto/bin/protoc-gen-go
 	PATH="$$PWD/.bin:$$PWD/.dev/golangproto/bin:$$PATH" protoc -I . --go_opt=paths=source_relative --go_out=./ ./internal/gogoproto/gogo.proto
 
-BINARY_DEPS = annotations/annotations.pb.go internal/gogoproto/gogo.pb.go $(wildcard cmd/protoc-gen-go-field-setters/*.go) $(wildcard internal/gen/*.go)
+BINARY_DEPS = annotations/annotations.pb.go internal/gogoproto/gogo.pb.go $(wildcard cmd/protoc-gen-go-fieldmask/*.go) $(wildcard internal/gen/*.go)
 
 VERSION ?= 0.0.0-dev
 
-LDFLAGS = -X github.com/TheThingsIndustries/protoc-gen-go-field-setters/internal/gen.Version=$(VERSION)
+LDFLAGS = -X github.com/TheThingsIndustries/protoc-gen-go-fieldmask/internal/gen.Version=$(VERSION)
 
-.bin/protoc-gen-go-field-setters: $(BINARY_DEPS)
-	CGO_ENABLED=0 go build -ldflags "$(LDFLAGS)" -o $@ ./cmd/protoc-gen-go-field-setters
+.bin/protoc-gen-go-fieldmask: $(BINARY_DEPS)
+	CGO_ENABLED=0 go build -ldflags "$(LDFLAGS)" -o $@ ./cmd/protoc-gen-go-fieldmask
 
-.bin/protoc-gen-go-field-setters-linux-amd64: $(BINARY_DEPS)
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o $@ ./cmd/protoc-gen-go-field-setters
+.bin/protoc-gen-go-fieldmask-linux-amd64: $(BINARY_DEPS)
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o $@ ./cmd/protoc-gen-go-fieldmask
 
-.bin/protoc-gen-go-field-setters-linux-arm64: $(BINARY_DEPS)
-	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags "$(LDFLAGS)" -o $@ ./cmd/protoc-gen-go-field-setters
+.bin/protoc-gen-go-fieldmask-linux-arm64: $(BINARY_DEPS)
+	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags "$(LDFLAGS)" -o $@ ./cmd/protoc-gen-go-fieldmask
 
 REPLACES = Mgoogle/protobuf/descriptor.proto=github.com/gogo/protobuf/protoc-gen-gogo/descriptor,Mgoogle/protobuf/any.proto=github.com/gogo/protobuf/types,Mgoogle/protobuf/duration.proto=github.com/gogo/protobuf/types,Mgoogle/protobuf/empty.proto=github.com/gogo/protobuf/types,Mgoogle/protobuf/field_mask.proto=github.com/gogo/protobuf/types,Mgoogle/protobuf/struct.proto=github.com/gogo/protobuf/types,Mgoogle/protobuf/timestamp.proto=github.com/gogo/protobuf/types,Mgoogle/protobuf/wrappers.proto=github.com/gogo/protobuf/types
 
 .PHONY: build
 
-build: .bin/protoc-gen-go-field-setters .bin/protoc-gen-go-field-setters-linux-amd64 .bin/protoc-gen-go-field-setters-linux-arm64
+build: .bin/protoc-gen-go-fieldmask .bin/protoc-gen-go-fieldmask-linux-amd64 .bin/protoc-gen-go-fieldmask-linux-arm64
 
 .PHONY: watch
 
 watch:
-	ls annotations.proto cmd/protoc-gen-go-field-setters/*.go internal/gen/*.go test/*.proto | entr make build test
+	ls annotations.proto cmd/protoc-gen-go-fieldmask/*.go internal/gen/*.go test/*.proto | entr make build test
 
 OS :=
 ifeq ($(shell uname),Linux)
@@ -79,14 +79,14 @@ endif
 testprotos: build .dev/golangproto/bin/protoc .dev/gogoproto/bin/protoc .dev/golangproto/bin/protoc-gen-go .dev/gogoproto/bin/protoc-gen-gogo
 	PATH="$$PWD/.bin:$$PWD/.dev/golangproto/bin:$$PATH" protoc -I ./test -I . \
 	  --go_opt=paths=source_relative --go_out=./test/golang \
-	  --go-field-setters_opt=paths=source_relative --go-field-setters_out=./test/golang \
+	  --go-fieldmask_opt=paths=source_relative --go-fieldmask_out=./test/golang \
 	  ./test/*.proto
 	PATH="$$PWD/.bin:$$PWD/.dev/gogoproto/bin:$$PATH" protoc -I ./test -I . \
 	  --gogo_opt=paths=source_relative --gogo_opt=$(REPLACES) --gogo_out=./test/gogo \
-	  --go-field-setters_opt=paths=source_relative --go-field-setters_opt=$(REPLACES) --go-field-setters_opt=lang=gogo --go-field-setters_out=./test/gogo \
+	  --go-fieldmask_opt=paths=source_relative --go-fieldmask_opt=$(REPLACES) --go-fieldmask_opt=lang=gogo --go-fieldmask_out=./test/gogo \
 	  ./test/*.proto
 
 .PHONY: test
 
 test: testprotos
-	go test ./fieldsetterplugin ./test/gogo ./test/golang
+	go test ./fieldmaskplugin ./test/gogo ./test/golang

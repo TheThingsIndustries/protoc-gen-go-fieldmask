@@ -1,7 +1,7 @@
 // Copyright © 2022 The Things Industries B.V.
 // SPDX-License-Identifier: Apache-2.0
 
-package fieldsetterplugin
+package fieldmaskplugin
 
 import (
 	"fmt"

@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	. "github.com/TheThingsIndustries/protoc-gen-go-field-setters/test/golang"
+	. "github.com/TheThingsIndustries/protoc-gen-go-fieldmask/test/golang"
 	"google.golang.org/protobuf/proto"
 	anypb "google.golang.org/protobuf/types/known/anypb"
 	durationpb "google.golang.org/protobuf/types/known/durationpb"

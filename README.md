@@ -1,23 +1,27 @@
-# protoc-gen-go-field-setters
+# protoc-gen-go-fieldmask
 
-> Protoc plugin for generating field setters in Go
+> Protoc plugin for generating fieldmask-aware methods for proto messages in Go
 
 ## Background
 
-The Things Stack works a lot with field masks. A common operation is to set fields specified by such a field mask from a source struct into a destination struct. This plugin generates a `SetFields` method that does that.
+The Things Stack works a lot with fieldmasks. This plugin generates methods that help us work with those field masks:
+
+- A `SetFields` method that lets us set fields specified by such a field mask from a source struct into a destination struct.  
+    For a specific message: `(thethings.fieldmask.message) = { field_setter: true }`  
+    For the entire file: `option (thethings.fieldmask.file) = { field_setters_all: true }`
 
 ## Usage in Proto Code
 
 ```proto
 syntax = "proto3";
 
-import "github.com/TheThingsIndustries/protoc-gen-go-field-setters/annotations.proto";
+import "github.com/TheThingsIndustries/protoc-gen-go-fieldmask/annotations.proto";
 
-package thethings.fieldsetters.example;
+package thethings.fieldmask.example;
 
-option go_package = "github.com/TheThingsIndustries/protoc-gen-go-field-setters/example";
+option go_package = "github.com/TheThingsIndustries/protoc-gen-go-fieldmask/example";
 
-option (thethings.fieldsetters.file) = {
+option (thethings.fieldmask.file) = {
   field_setters_all: true,   // Generate field setters for everything in the file.
 };
 
@@ -27,7 +31,7 @@ message SomeMessage {
 }
 
 message MessageWithoutFieldSetter {
-  option (thethings.fieldsetters.message) = { field_setter: false };
+  option (thethings.fieldmask.message) = { field_setter: false };
 
   string some_field = 1;
 }
@@ -38,7 +42,7 @@ message MessageWithoutFieldSetter {
 ```bash
 $ protoc -I ./path/to -I . \
   --go_opt=paths=source_relative --go_out=./path/to \
-  --go-field-setters_opt=paths=source_relative --go-field-setters_out=./path/to \
+  --go-fieldmask_opt=paths=source_relative --go-fieldmask_out=./path/to \
   ./path/to/*.proto
 ```
 

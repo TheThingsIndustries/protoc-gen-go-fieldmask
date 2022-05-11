@@ -5,11 +5,11 @@ syntax = "proto3";
 
 import "annotations.proto";
 
-package thethings.fieldsetters.test;
+package thethings.fieldmask.test;
 
-option go_package = "github.com/TheThingsIndustries/protoc-gen-go-field-setters/test";
+option go_package = "github.com/TheThingsIndustries/protoc-gen-go-fieldmask/test";
 
-option (thethings.fieldsetters.file) = { field_setter_all: true };
+option (thethings.fieldmask.file) = { field_setter_all: true };
 
 message MessageWithScalars {
   double double_value = 1;

@@ -7,7 +7,7 @@ import (
 	"flag"
 	"fmt"
 
-	plugin "github.com/TheThingsIndustries/protoc-gen-go-field-setters/internal/gen"
+	plugin "github.com/TheThingsIndustries/protoc-gen-go-fieldmask/internal/gen"
 	"google.golang.org/protobuf/compiler/protogen"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
@@ -16,7 +16,7 @@ func main() {
 	showVersion := flag.Bool("version", false, "print the version and exit")
 	flag.Parse()
 	if *showVersion {
-		fmt.Printf("protoc-gen-go-field-setters %v\n", plugin.Version)
+		fmt.Printf("protoc-gen-go-fieldmask %v\n", plugin.Version)
 		return
 	}
 
@@ -31,7 +31,7 @@ func main() {
 				continue
 			}
 			if f.Desc.Syntax() != protoreflect.Proto3 {
-				return fmt.Errorf("the protoc-gen-go-field-setters plugin only supports proto3 syntax")
+				return fmt.Errorf("the protoc-gen-go-fieldmask plugin only supports proto3 syntax")
 			}
 			plugin.GenerateFile(gen, f)
 		}

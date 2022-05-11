@@ -3,6 +3,6 @@
 
 syntax = "proto3";
 
-package thethings.fieldsetters.test;
+package thethings.fieldmask.test;
 
-option go_package = "github.com/TheThingsIndustries/protoc-gen-go-field-setters/test";
+option go_package = "github.com/TheThingsIndustries/protoc-gen-go-fieldmask/test";
