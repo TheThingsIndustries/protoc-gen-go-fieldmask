@@ -39,8 +39,8 @@ func (fs FieldSet) Contains(field string) bool {
 // FieldError indicates an error setting a field in destination.
 type FieldError struct {
 	Message string
-	Field       string
-	Inner       error
+	Field   string
+	Inner   error
 }
 
 func (e *FieldError) Error() string {
@@ -64,8 +64,8 @@ func (e *FieldError) Unwrap() error {
 func WrapFieldError(message, field string, err error) error {
 	return &FieldError{
 		Message: message,
-		Field:       field,
-		Inner:       err,
+		Field:   field,
+		Inner:   err,
 	}
 }
 
@@ -119,4 +119,26 @@ func TopLevelField(path string) string {
 		return path[:i]
 	}
 	return path
+}
+
+// PrefixPaths adds the given prefix to the paths.
+func PrefixPaths(paths []string, prefix string) []string {
+	out := make([]string, len(paths))
+	for i, v := range paths {
+		out[i] = prefix + "." + v
+	}
+	return out
+}
+
+// Flatten flattens a list of string slices.
+func Flatten(paths [][]string) []string {
+	var outLen int
+	for _, paths := range paths {
+		outLen += len(paths)
+	}
+	out := make([]string, 0, outLen)
+	for _, paths := range paths {
+		out = append(out, paths...)
+	}
+	return out
 }
