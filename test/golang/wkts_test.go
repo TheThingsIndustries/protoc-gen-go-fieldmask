@@ -197,7 +197,13 @@ func TestMessageWithWKTs(t *testing.T) {
 	expectStringSlice(t, paths, dst.FieldPaths(1))
 	expectStringSlice(t, paths, dst.FieldPaths(2))
 
-	err := dst.SetFields(
+	normalized, err := dst.NormalizeFieldPaths(paths...)
+	if err != nil {
+		t.Errorf("unexpected error in NormalizeFieldPaths: %v", err)
+	}
+	expectStringSlice(t, paths, normalized)
+
+	err = dst.SetFields(
 		fullMessageWithWKTs,
 		paths...,
 	)
@@ -385,6 +391,12 @@ func TestMessageWithOneofWKTs(t *testing.T) {
 	expectStringSlice(t, nil, dst.FieldPaths(0))
 	expectStringSlice(t, paths, dst.FieldPaths(1))
 	expectStringSlice(t, paths, dst.FieldPaths(2))
+
+	normalized, err := dst.NormalizeFieldPaths(paths...)
+	if err != nil {
+		t.Errorf("unexpected error in NormalizeFieldPaths: %v", err)
+	}
+	expectStringSlice(t, paths, normalized)
 
 	for _, tt := range testMessagesWithOneofWKTs {
 		t.Run(tt.name, func(t *testing.T) {

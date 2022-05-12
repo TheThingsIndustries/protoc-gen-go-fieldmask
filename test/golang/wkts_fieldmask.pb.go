@@ -54,6 +54,93 @@ func (x *MessageWithWKTs) FieldPaths(maxDepth int) []string {
 	}
 }
 
+// NormalizeFieldPaths normalizes the field paths.
+func (x *MessageWithWKTs) NormalizeFieldPaths(paths ...string) ([]string, error) {
+	var (
+		normalizedPaths []string
+		fset            = make(fieldmaskplugin.FieldSet, 34)
+	)
+	for _, field := range fieldmaskplugin.TopLevelPaths(paths) {
+		if fset.Contains(field) {
+			continue
+		}
+		switch field {
+		default:
+			return nil, fieldmaskplugin.FieldErrorf("MessageWithWKTs", field, "unknown field")
+		case "double_value", "doubleValue":
+			normalizedPaths = append(normalizedPaths, "double_value")
+		case "double_values", "doubleValues":
+			normalizedPaths = append(normalizedPaths, "double_values")
+		case "float_value", "floatValue":
+			normalizedPaths = append(normalizedPaths, "float_value")
+		case "float_values", "floatValues":
+			normalizedPaths = append(normalizedPaths, "float_values")
+		case "int32_value", "int32Value":
+			normalizedPaths = append(normalizedPaths, "int32_value")
+		case "int32_values", "int32Values":
+			normalizedPaths = append(normalizedPaths, "int32_values")
+		case "int64_value", "int64Value":
+			normalizedPaths = append(normalizedPaths, "int64_value")
+		case "int64_values", "int64Values":
+			normalizedPaths = append(normalizedPaths, "int64_values")
+		case "uint32_value", "uint32Value":
+			normalizedPaths = append(normalizedPaths, "uint32_value")
+		case "uint32_values", "uint32Values":
+			normalizedPaths = append(normalizedPaths, "uint32_values")
+		case "uint64_value", "uint64Value":
+			normalizedPaths = append(normalizedPaths, "uint64_value")
+		case "uint64_values", "uint64Values":
+			normalizedPaths = append(normalizedPaths, "uint64_values")
+		case "bool_value", "boolValue":
+			normalizedPaths = append(normalizedPaths, "bool_value")
+		case "bool_values", "boolValues":
+			normalizedPaths = append(normalizedPaths, "bool_values")
+		case "string_value", "stringValue":
+			normalizedPaths = append(normalizedPaths, "string_value")
+		case "string_values", "stringValues":
+			normalizedPaths = append(normalizedPaths, "string_values")
+		case "bytes_value", "bytesValue":
+			normalizedPaths = append(normalizedPaths, "bytes_value")
+		case "bytes_values", "bytesValues":
+			normalizedPaths = append(normalizedPaths, "bytes_values")
+		case "empty_value", "emptyValue":
+			normalizedPaths = append(normalizedPaths, "empty_value")
+		case "empty_values", "emptyValues":
+			normalizedPaths = append(normalizedPaths, "empty_values")
+		case "timestamp_value", "timestampValue":
+			normalizedPaths = append(normalizedPaths, "timestamp_value")
+		case "timestamp_values", "timestampValues":
+			normalizedPaths = append(normalizedPaths, "timestamp_values")
+		case "duration_value", "durationValue":
+			normalizedPaths = append(normalizedPaths, "duration_value")
+		case "duration_values", "durationValues":
+			normalizedPaths = append(normalizedPaths, "duration_values")
+		case "field_mask_value", "fieldMaskValue":
+			normalizedPaths = append(normalizedPaths, "field_mask_value")
+		case "field_mask_values", "fieldMaskValues":
+			normalizedPaths = append(normalizedPaths, "field_mask_values")
+		case "value_value", "valueValue":
+			normalizedPaths = append(normalizedPaths, "value_value")
+		case "value_values", "valueValues":
+			normalizedPaths = append(normalizedPaths, "value_values")
+		case "list_value_value", "listValueValue":
+			normalizedPaths = append(normalizedPaths, "list_value_value")
+		case "list_value_values", "listValueValues":
+			normalizedPaths = append(normalizedPaths, "list_value_values")
+		case "struct_value", "structValue":
+			normalizedPaths = append(normalizedPaths, "struct_value")
+		case "struct_values", "structValues":
+			normalizedPaths = append(normalizedPaths, "struct_values")
+		case "any_value", "anyValue":
+			normalizedPaths = append(normalizedPaths, "any_value")
+		case "any_values", "anyValues":
+			normalizedPaths = append(normalizedPaths, "any_values")
+		}
+		fset.Add(field)
+	}
+	return normalizedPaths, nil
+}
+
 // SetFields sets the given fields from src into x.
 func (x *MessageWithWKTs) SetFields(src *MessageWithWKTs, paths ...string) error {
 	switch {
@@ -170,6 +257,78 @@ func (x *MessageWithOneofWKTs) FieldPaths(maxDepth int) []string {
 		"struct_value",
 		"any_value",
 	}
+}
+
+// NormalizeFieldPaths normalizes the field paths.
+func (x *MessageWithOneofWKTs) NormalizeFieldPaths(paths ...string) ([]string, error) {
+	var (
+		normalizedPaths []string
+		fset            = make(fieldmaskplugin.FieldSet, 18)
+	)
+	for _, field := range fieldmaskplugin.TopLevelPaths(paths) {
+		if fset.Contains(field) {
+			continue
+		}
+		switch field {
+		default:
+			return nil, fieldmaskplugin.FieldErrorf("MessageWithOneofWKTs", field, "unknown field")
+		case "double_value", "doubleValue":
+			normalizedPaths = append(normalizedPaths, "double_value")
+		case "float_value", "floatValue":
+			normalizedPaths = append(normalizedPaths, "float_value")
+		case "int32_value", "int32Value":
+			normalizedPaths = append(normalizedPaths, "int32_value")
+		case "int64_value", "int64Value":
+			normalizedPaths = append(normalizedPaths, "int64_value")
+		case "uint32_value", "uint32Value":
+			normalizedPaths = append(normalizedPaths, "uint32_value")
+		case "uint64_value", "uint64Value":
+			normalizedPaths = append(normalizedPaths, "uint64_value")
+		case "bool_value", "boolValue":
+			normalizedPaths = append(normalizedPaths, "bool_value")
+		case "string_value", "stringValue":
+			normalizedPaths = append(normalizedPaths, "string_value")
+		case "bytes_value", "bytesValue":
+			normalizedPaths = append(normalizedPaths, "bytes_value")
+		case "empty_value", "emptyValue":
+			normalizedPaths = append(normalizedPaths, "empty_value")
+		case "timestamp_value", "timestampValue":
+			normalizedPaths = append(normalizedPaths, "timestamp_value")
+		case "duration_value", "durationValue":
+			normalizedPaths = append(normalizedPaths, "duration_value")
+		case "field_mask_value", "fieldMaskValue":
+			normalizedPaths = append(normalizedPaths, "field_mask_value")
+		case "value_value", "valueValue":
+			normalizedPaths = append(normalizedPaths, "value_value")
+		case "list_value_value", "listValueValue":
+			normalizedPaths = append(normalizedPaths, "list_value_value")
+		case "struct_value", "structValue":
+			normalizedPaths = append(normalizedPaths, "struct_value")
+		case "any_value", "anyValue":
+			normalizedPaths = append(normalizedPaths, "any_value")
+		case "value":
+			normalizedPaths = append(normalizedPaths, "value")
+		}
+		fset.Add(field)
+	}
+	for _, field := range fieldmaskplugin.SubPaths(paths) {
+		topLevelField := fieldmaskplugin.TopLevelField(field)
+		if fset.Contains(topLevelField) {
+			continue
+		}
+		switch topLevelField {
+		default:
+			return nil, fieldmaskplugin.FieldErrorf("MessageWithOneofWKTs", field, "unknown field")
+		case "value":
+			normalizedSubFields, err := x.NormalizeFieldPaths(fieldmaskplugin.SubPathsOf(paths, topLevelField)...)
+			if err != nil {
+				return nil, err
+			}
+			normalizedPaths = append(normalizedPaths, normalizedSubFields...)
+		}
+		fset.Add(topLevelField)
+	}
+	return normalizedPaths, nil
 }
 
 // SetFields sets the given fields from src into x.

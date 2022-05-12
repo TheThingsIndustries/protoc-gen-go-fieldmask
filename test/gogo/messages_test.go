@@ -28,7 +28,13 @@ func TestMessageWithSubMessages(t *testing.T) {
 	expectStringSlice(t, []string{"a", "a.foo", "a.bar", "b", "b.foo", "b.bar"}, dst.FieldPaths(2))
 	expectStringSlice(t, []string{"a", "a.foo", "a.bar", "b", "b.foo", "b.bar"}, dst.FieldPaths(3))
 
-	err := dst.SetFields(
+	normalized, err := dst.NormalizeFieldPaths("a", "a.foo", "a.bar", "b", "b.foo", "b.bar")
+	if err != nil {
+		t.Errorf("unexpected error in NormalizeFieldPaths: %v", err)
+	}
+	expectStringSlice(t, []string{"a", "b"}, normalized)
+
+	err = dst.SetFields(
 		fullMessageWithSubMessages,
 		"a",
 		"b.foo",
@@ -96,6 +102,12 @@ func TestMessageWithOneofSubMessages(t *testing.T) {
 	expectStringSlice(t, []string{"a", "b"}, dst.FieldPaths(1))
 	expectStringSlice(t, []string{"a", "a.foo", "a.bar", "b", "b.foo", "b.bar"}, dst.FieldPaths(2))
 	expectStringSlice(t, []string{"a", "a.foo", "a.bar", "b", "b.foo", "b.bar"}, dst.FieldPaths(3))
+
+	normalized, err := dst.NormalizeFieldPaths("a", "a.foo", "a.bar", "b", "b.foo", "b.bar")
+	if err != nil {
+		t.Errorf("unexpected error in NormalizeFieldPaths: %v", err)
+	}
+	expectStringSlice(t, []string{"a", "b"}, normalized)
 
 	for _, tt := range testMessagesWithOneofSubMessages {
 		t.Run(tt.name, func(t *testing.T) {

@@ -21,6 +21,27 @@ func (x *MessageWithoutFieldSetter) FieldPaths(maxDepth int) []string {
 	}
 }
 
+// NormalizeFieldPaths normalizes the field paths.
+func (x *MessageWithoutFieldSetter) NormalizeFieldPaths(paths ...string) ([]string, error) {
+	var (
+		normalizedPaths []string
+		fset            = make(fieldmaskplugin.FieldSet, 1)
+	)
+	for _, field := range fieldmaskplugin.TopLevelPaths(paths) {
+		if fset.Contains(field) {
+			continue
+		}
+		switch field {
+		default:
+			return nil, fieldmaskplugin.FieldErrorf("MessageWithoutFieldSetter", field, "unknown field")
+		case "message":
+			normalizedPaths = append(normalizedPaths, "message")
+		}
+		fset.Add(field)
+	}
+	return normalizedPaths, nil
+}
+
 // FieldPaths returns the field paths up to the given maximum depth.
 func (x *SubMessage) FieldPaths(maxDepth int) []string {
 	if maxDepth == 0 {
@@ -30,6 +51,29 @@ func (x *SubMessage) FieldPaths(maxDepth int) []string {
 		"foo",
 		"bar",
 	}
+}
+
+// NormalizeFieldPaths normalizes the field paths.
+func (x *SubMessage) NormalizeFieldPaths(paths ...string) ([]string, error) {
+	var (
+		normalizedPaths []string
+		fset            = make(fieldmaskplugin.FieldSet, 2)
+	)
+	for _, field := range fieldmaskplugin.TopLevelPaths(paths) {
+		if fset.Contains(field) {
+			continue
+		}
+		switch field {
+		default:
+			return nil, fieldmaskplugin.FieldErrorf("SubMessage", field, "unknown field")
+		case "foo":
+			normalizedPaths = append(normalizedPaths, "foo")
+		case "bar":
+			normalizedPaths = append(normalizedPaths, "bar")
+		}
+		fset.Add(field)
+	}
+	return normalizedPaths, nil
 }
 
 // SetFields sets the given fields from src into x.
@@ -77,6 +121,52 @@ func (x *MessageWithSubMessages) FieldPaths(maxDepth int) []string {
 		"a",
 		"b",
 	}
+}
+
+// NormalizeFieldPaths normalizes the field paths.
+func (x *MessageWithSubMessages) NormalizeFieldPaths(paths ...string) ([]string, error) {
+	var (
+		normalizedPaths []string
+		fset            = make(fieldmaskplugin.FieldSet, 2)
+	)
+	for _, field := range fieldmaskplugin.TopLevelPaths(paths) {
+		if fset.Contains(field) {
+			continue
+		}
+		switch field {
+		default:
+			return nil, fieldmaskplugin.FieldErrorf("MessageWithSubMessages", field, "unknown field")
+		case "a":
+			normalizedPaths = append(normalizedPaths, "a")
+		case "b":
+			normalizedPaths = append(normalizedPaths, "b")
+		}
+		fset.Add(field)
+	}
+	for _, field := range fieldmaskplugin.SubPaths(paths) {
+		topLevelField := fieldmaskplugin.TopLevelField(field)
+		if fset.Contains(topLevelField) {
+			continue
+		}
+		switch topLevelField {
+		default:
+			return nil, fieldmaskplugin.FieldErrorf("MessageWithSubMessages", field, "unknown field")
+		case "a":
+			normalizedSubFields, err := ((*SubMessage)(nil)).NormalizeFieldPaths(fieldmaskplugin.SubPathsOf(paths, topLevelField)...)
+			if err != nil {
+				return nil, err
+			}
+			normalizedPaths = append(normalizedPaths, fieldmaskplugin.PrefixPaths(normalizedSubFields, topLevelField)...)
+		case "b":
+			normalizedSubFields, err := ((*SubMessage)(nil)).NormalizeFieldPaths(fieldmaskplugin.SubPathsOf(paths, topLevelField)...)
+			if err != nil {
+				return nil, err
+			}
+			normalizedPaths = append(normalizedPaths, fieldmaskplugin.PrefixPaths(normalizedSubFields, topLevelField)...)
+		}
+		fset.Add(topLevelField)
+	}
+	return normalizedPaths, nil
 }
 
 // SetFields sets the given fields from src into x.
@@ -151,6 +241,60 @@ func (x *MessageWithOneofSubMessages) FieldPaths(maxDepth int) []string {
 		"a",
 		"b",
 	}
+}
+
+// NormalizeFieldPaths normalizes the field paths.
+func (x *MessageWithOneofSubMessages) NormalizeFieldPaths(paths ...string) ([]string, error) {
+	var (
+		normalizedPaths []string
+		fset            = make(fieldmaskplugin.FieldSet, 3)
+	)
+	for _, field := range fieldmaskplugin.TopLevelPaths(paths) {
+		if fset.Contains(field) {
+			continue
+		}
+		switch field {
+		default:
+			return nil, fieldmaskplugin.FieldErrorf("MessageWithOneofSubMessages", field, "unknown field")
+		case "a":
+			normalizedPaths = append(normalizedPaths, "a")
+		case "b":
+			normalizedPaths = append(normalizedPaths, "b")
+		case "sub":
+			normalizedPaths = append(normalizedPaths, "sub")
+		}
+		fset.Add(field)
+	}
+	for _, field := range fieldmaskplugin.SubPaths(paths) {
+		topLevelField := fieldmaskplugin.TopLevelField(field)
+		if fset.Contains(topLevelField) {
+			continue
+		}
+		switch topLevelField {
+		default:
+			return nil, fieldmaskplugin.FieldErrorf("MessageWithOneofSubMessages", field, "unknown field")
+		case "a":
+			normalizedSubFields, err := ((*SubMessage)(nil)).NormalizeFieldPaths(fieldmaskplugin.SubPathsOf(paths, topLevelField)...)
+			if err != nil {
+				return nil, err
+			}
+			normalizedPaths = append(normalizedPaths, fieldmaskplugin.PrefixPaths(normalizedSubFields, topLevelField)...)
+		case "b":
+			normalizedSubFields, err := ((*SubMessage)(nil)).NormalizeFieldPaths(fieldmaskplugin.SubPathsOf(paths, topLevelField)...)
+			if err != nil {
+				return nil, err
+			}
+			normalizedPaths = append(normalizedPaths, fieldmaskplugin.PrefixPaths(normalizedSubFields, topLevelField)...)
+		case "sub":
+			normalizedSubFields, err := x.NormalizeFieldPaths(fieldmaskplugin.SubPathsOf(paths, topLevelField)...)
+			if err != nil {
+				return nil, err
+			}
+			normalizedPaths = append(normalizedPaths, normalizedSubFields...)
+		}
+		fset.Add(topLevelField)
+	}
+	return normalizedPaths, nil
 }
 
 // SetFields sets the given fields from src into x.

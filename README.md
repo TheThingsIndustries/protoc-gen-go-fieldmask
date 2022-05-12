@@ -9,6 +9,9 @@ The Things Stack works a lot with fieldmasks. This plugin generates methods that
 - A `FieldPaths` method that lets us get the full list of field paths supported by the message (and its sub-messages).  
     For a specific message: `(thethings.fieldmask.message) = { field_paths: true }`  
     For the entire file: `option (thethings.fieldmask.file) = { field_paths_all: true }`
+- A `NormalizeFieldPaths` method that lets us normalize a list of field paths for the message.  
+    For a specific message: `(thethings.fieldmask.message) = { field_path_normalizer: true }`  
+    For the entire file: `option (thethings.fieldmask.file) = { field_path_normalizer_all: true }`
 - A `SetFields` method that lets us set fields specified by such a field mask from a source struct into a destination struct.  
     For a specific message: `(thethings.fieldmask.message) = { field_setter: true }`  
     For the entire file: `option (thethings.fieldmask.file) = { field_setters_all: true }`
@@ -25,8 +28,9 @@ package thethings.fieldmask.example;
 option go_package = "github.com/TheThingsIndustries/protoc-gen-go-fieldmask/example";
 
 option (thethings.fieldmask.file) = {
-  field_paths_all: true,     // Generate FieldPaths methods for everything in the file.
-  field_setters_all: true,   // Generate field setters for everything in the file.
+  field_paths_all: true,             // Generate FieldPaths methods for everything in the file.
+  field_path_normalizer_all: true,   // Generate field path normalizers for everything in the file.
+  field_setters_all: true,           // Generate field setters for everything in the file.
 };
 
 message SomeMessage {
@@ -42,6 +46,12 @@ message MessageWithoutFieldPathsMethod {
 
 message MessageWithoutFieldSetter {
   option (thethings.fieldmask.message) = { field_setter: false };
+
+  string some_field = 1;
+}
+
+message MessageWithoutFieldPathNormalizer {
+  option (thethings.fieldmask.message) = { field_path_normalizer: false };
 
   string some_field = 1;
 }
@@ -71,7 +81,12 @@ src := &SomeMessage{
 
 var src, dst *SomeMessage
 
-if err := dst.SetFields(src, "some_field"); err != nil {
+normalizedPaths, err := dst.NormalizeFieldPaths("some_field")
+if err != nil {
+  return err
+}
+
+if err = dst.SetFields(src, normalizedPaths); err != nil {
   return err
 }
 ```

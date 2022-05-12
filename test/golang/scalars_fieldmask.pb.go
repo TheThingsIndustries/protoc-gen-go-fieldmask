@@ -50,6 +50,85 @@ func (x *MessageWithScalars) FieldPaths(maxDepth int) []string {
 	}
 }
 
+// NormalizeFieldPaths normalizes the field paths.
+func (x *MessageWithScalars) NormalizeFieldPaths(paths ...string) ([]string, error) {
+	var (
+		normalizedPaths []string
+		fset            = make(fieldmaskplugin.FieldSet, 30)
+	)
+	for _, field := range fieldmaskplugin.TopLevelPaths(paths) {
+		if fset.Contains(field) {
+			continue
+		}
+		switch field {
+		default:
+			return nil, fieldmaskplugin.FieldErrorf("MessageWithScalars", field, "unknown field")
+		case "double_value", "doubleValue":
+			normalizedPaths = append(normalizedPaths, "double_value")
+		case "double_values", "doubleValues":
+			normalizedPaths = append(normalizedPaths, "double_values")
+		case "float_value", "floatValue":
+			normalizedPaths = append(normalizedPaths, "float_value")
+		case "float_values", "floatValues":
+			normalizedPaths = append(normalizedPaths, "float_values")
+		case "int32_value", "int32Value":
+			normalizedPaths = append(normalizedPaths, "int32_value")
+		case "int32_values", "int32Values":
+			normalizedPaths = append(normalizedPaths, "int32_values")
+		case "int64_value", "int64Value":
+			normalizedPaths = append(normalizedPaths, "int64_value")
+		case "int64_values", "int64Values":
+			normalizedPaths = append(normalizedPaths, "int64_values")
+		case "uint32_value", "uint32Value":
+			normalizedPaths = append(normalizedPaths, "uint32_value")
+		case "uint32_values", "uint32Values":
+			normalizedPaths = append(normalizedPaths, "uint32_values")
+		case "uint64_value", "uint64Value":
+			normalizedPaths = append(normalizedPaths, "uint64_value")
+		case "uint64_values", "uint64Values":
+			normalizedPaths = append(normalizedPaths, "uint64_values")
+		case "sint32_value", "sint32Value":
+			normalizedPaths = append(normalizedPaths, "sint32_value")
+		case "sint32_values", "sint32Values":
+			normalizedPaths = append(normalizedPaths, "sint32_values")
+		case "sint64_value", "sint64Value":
+			normalizedPaths = append(normalizedPaths, "sint64_value")
+		case "sint64_values", "sint64Values":
+			normalizedPaths = append(normalizedPaths, "sint64_values")
+		case "fixed32_value", "fixed32Value":
+			normalizedPaths = append(normalizedPaths, "fixed32_value")
+		case "fixed32_values", "fixed32Values":
+			normalizedPaths = append(normalizedPaths, "fixed32_values")
+		case "fixed64_value", "fixed64Value":
+			normalizedPaths = append(normalizedPaths, "fixed64_value")
+		case "fixed64_values", "fixed64Values":
+			normalizedPaths = append(normalizedPaths, "fixed64_values")
+		case "sfixed32_value", "sfixed32Value":
+			normalizedPaths = append(normalizedPaths, "sfixed32_value")
+		case "sfixed32_values", "sfixed32Values":
+			normalizedPaths = append(normalizedPaths, "sfixed32_values")
+		case "sfixed64_value", "sfixed64Value":
+			normalizedPaths = append(normalizedPaths, "sfixed64_value")
+		case "sfixed64_values", "sfixed64Values":
+			normalizedPaths = append(normalizedPaths, "sfixed64_values")
+		case "bool_value", "boolValue":
+			normalizedPaths = append(normalizedPaths, "bool_value")
+		case "bool_values", "boolValues":
+			normalizedPaths = append(normalizedPaths, "bool_values")
+		case "string_value", "stringValue":
+			normalizedPaths = append(normalizedPaths, "string_value")
+		case "string_values", "stringValues":
+			normalizedPaths = append(normalizedPaths, "string_values")
+		case "bytes_value", "bytesValue":
+			normalizedPaths = append(normalizedPaths, "bytes_value")
+		case "bytes_values", "bytesValues":
+			normalizedPaths = append(normalizedPaths, "bytes_values")
+		}
+		fset.Add(field)
+	}
+	return normalizedPaths, nil
+}
+
 // SetFields sets the given fields from src into x.
 func (x *MessageWithScalars) SetFields(src *MessageWithScalars, paths ...string) error {
 	switch {
@@ -156,6 +235,74 @@ func (x *MessageWithOneofScalars) FieldPaths(maxDepth int) []string {
 		"string_value",
 		"bytes_value",
 	}
+}
+
+// NormalizeFieldPaths normalizes the field paths.
+func (x *MessageWithOneofScalars) NormalizeFieldPaths(paths ...string) ([]string, error) {
+	var (
+		normalizedPaths []string
+		fset            = make(fieldmaskplugin.FieldSet, 16)
+	)
+	for _, field := range fieldmaskplugin.TopLevelPaths(paths) {
+		if fset.Contains(field) {
+			continue
+		}
+		switch field {
+		default:
+			return nil, fieldmaskplugin.FieldErrorf("MessageWithOneofScalars", field, "unknown field")
+		case "double_value", "doubleValue":
+			normalizedPaths = append(normalizedPaths, "double_value")
+		case "float_value", "floatValue":
+			normalizedPaths = append(normalizedPaths, "float_value")
+		case "int32_value", "int32Value":
+			normalizedPaths = append(normalizedPaths, "int32_value")
+		case "int64_value", "int64Value":
+			normalizedPaths = append(normalizedPaths, "int64_value")
+		case "uint32_value", "uint32Value":
+			normalizedPaths = append(normalizedPaths, "uint32_value")
+		case "uint64_value", "uint64Value":
+			normalizedPaths = append(normalizedPaths, "uint64_value")
+		case "sint32_value", "sint32Value":
+			normalizedPaths = append(normalizedPaths, "sint32_value")
+		case "sint64_value", "sint64Value":
+			normalizedPaths = append(normalizedPaths, "sint64_value")
+		case "fixed32_value", "fixed32Value":
+			normalizedPaths = append(normalizedPaths, "fixed32_value")
+		case "fixed64_value", "fixed64Value":
+			normalizedPaths = append(normalizedPaths, "fixed64_value")
+		case "sfixed32_value", "sfixed32Value":
+			normalizedPaths = append(normalizedPaths, "sfixed32_value")
+		case "sfixed64_value", "sfixed64Value":
+			normalizedPaths = append(normalizedPaths, "sfixed64_value")
+		case "bool_value", "boolValue":
+			normalizedPaths = append(normalizedPaths, "bool_value")
+		case "string_value", "stringValue":
+			normalizedPaths = append(normalizedPaths, "string_value")
+		case "bytes_value", "bytesValue":
+			normalizedPaths = append(normalizedPaths, "bytes_value")
+		case "value":
+			normalizedPaths = append(normalizedPaths, "value")
+		}
+		fset.Add(field)
+	}
+	for _, field := range fieldmaskplugin.SubPaths(paths) {
+		topLevelField := fieldmaskplugin.TopLevelField(field)
+		if fset.Contains(topLevelField) {
+			continue
+		}
+		switch topLevelField {
+		default:
+			return nil, fieldmaskplugin.FieldErrorf("MessageWithOneofScalars", field, "unknown field")
+		case "value":
+			normalizedSubFields, err := x.NormalizeFieldPaths(fieldmaskplugin.SubPathsOf(paths, topLevelField)...)
+			if err != nil {
+				return nil, err
+			}
+			normalizedPaths = append(normalizedPaths, normalizedSubFields...)
+		}
+		fset.Add(topLevelField)
+	}
+	return normalizedPaths, nil
 }
 
 // SetFields sets the given fields from src into x.
@@ -307,6 +454,77 @@ func (x *MessageWithScalarMaps) FieldPaths(maxDepth int) []string {
 		"string_string_map",
 		"string_bytes_map",
 	}
+}
+
+// NormalizeFieldPaths normalizes the field paths.
+func (x *MessageWithScalarMaps) NormalizeFieldPaths(paths ...string) ([]string, error) {
+	var (
+		normalizedPaths []string
+		fset            = make(fieldmaskplugin.FieldSet, 26)
+	)
+	for _, field := range fieldmaskplugin.TopLevelPaths(paths) {
+		if fset.Contains(field) {
+			continue
+		}
+		switch field {
+		default:
+			return nil, fieldmaskplugin.FieldErrorf("MessageWithScalarMaps", field, "unknown field")
+		case "string_double_map", "stringDoubleMap":
+			normalizedPaths = append(normalizedPaths, "string_double_map")
+		case "string_float_map", "stringFloatMap":
+			normalizedPaths = append(normalizedPaths, "string_float_map")
+		case "string_int32_map", "stringInt32Map":
+			normalizedPaths = append(normalizedPaths, "string_int32_map")
+		case "int32_string_map", "int32StringMap":
+			normalizedPaths = append(normalizedPaths, "int32_string_map")
+		case "string_int64_map", "stringInt64Map":
+			normalizedPaths = append(normalizedPaths, "string_int64_map")
+		case "int64_string_map", "int64StringMap":
+			normalizedPaths = append(normalizedPaths, "int64_string_map")
+		case "string_uint32_map", "stringUint32Map":
+			normalizedPaths = append(normalizedPaths, "string_uint32_map")
+		case "uint32_string_map", "uint32StringMap":
+			normalizedPaths = append(normalizedPaths, "uint32_string_map")
+		case "string_uint64_map", "stringUint64Map":
+			normalizedPaths = append(normalizedPaths, "string_uint64_map")
+		case "uint64_string_map", "uint64StringMap":
+			normalizedPaths = append(normalizedPaths, "uint64_string_map")
+		case "string_sint32_map", "stringSint32Map":
+			normalizedPaths = append(normalizedPaths, "string_sint32_map")
+		case "sint32_string_map", "sint32StringMap":
+			normalizedPaths = append(normalizedPaths, "sint32_string_map")
+		case "string_sint64_map", "stringSint64Map":
+			normalizedPaths = append(normalizedPaths, "string_sint64_map")
+		case "sint64_string_map", "sint64StringMap":
+			normalizedPaths = append(normalizedPaths, "sint64_string_map")
+		case "string_fixed32_map", "stringFixed32Map":
+			normalizedPaths = append(normalizedPaths, "string_fixed32_map")
+		case "fixed32_string_map", "fixed32StringMap":
+			normalizedPaths = append(normalizedPaths, "fixed32_string_map")
+		case "string_fixed64_map", "stringFixed64Map":
+			normalizedPaths = append(normalizedPaths, "string_fixed64_map")
+		case "fixed64_string_map", "fixed64StringMap":
+			normalizedPaths = append(normalizedPaths, "fixed64_string_map")
+		case "string_sfixed32_map", "stringSfixed32Map":
+			normalizedPaths = append(normalizedPaths, "string_sfixed32_map")
+		case "sfixed32_string_map", "sfixed32StringMap":
+			normalizedPaths = append(normalizedPaths, "sfixed32_string_map")
+		case "string_sfixed64_map", "stringSfixed64Map":
+			normalizedPaths = append(normalizedPaths, "string_sfixed64_map")
+		case "sfixed64_string_map", "sfixed64StringMap":
+			normalizedPaths = append(normalizedPaths, "sfixed64_string_map")
+		case "string_bool_map", "stringBoolMap":
+			normalizedPaths = append(normalizedPaths, "string_bool_map")
+		case "bool_string_map", "boolStringMap":
+			normalizedPaths = append(normalizedPaths, "bool_string_map")
+		case "string_string_map", "stringStringMap":
+			normalizedPaths = append(normalizedPaths, "string_string_map")
+		case "string_bytes_map", "stringBytesMap":
+			normalizedPaths = append(normalizedPaths, "string_bytes_map")
+		}
+		fset.Add(field)
+	}
+	return normalizedPaths, nil
 }
 
 // SetFields sets the given fields from src into x.

@@ -67,7 +67,35 @@ func TestMessageWithScalars(t *testing.T) {
 	expectStringSlice(t, paths, dst.FieldPaths(1))
 	expectStringSlice(t, paths, dst.FieldPaths(2))
 
-	err := dst.SetFields(
+	normalized, err := dst.NormalizeFieldPaths(paths...)
+	if err != nil {
+		t.Errorf("unexpected error in NormalizeFieldPaths: %v", err)
+	}
+	expectStringSlice(t, paths, normalized)
+
+	normalized, err = dst.NormalizeFieldPaths(
+		"doubleValue", "doubleValues",
+		"floatValue", "floatValues",
+		"int32Value", "int32Values",
+		"int64Value", "int64Values",
+		"uint32Value", "uint32Values",
+		"uint64Value", "uint64Values",
+		"sint32Value", "sint32Values",
+		"sint64Value", "sint64Values",
+		"fixed32Value", "fixed32Values",
+		"fixed64Value", "fixed64Values",
+		"sfixed32Value", "sfixed32Values",
+		"sfixed64Value", "sfixed64Values",
+		"boolValue", "boolValues",
+		"stringValue", "stringValues",
+		"bytesValue", "bytesValues",
+	)
+	if err != nil {
+		t.Errorf("unexpected error in NormalizeFieldPaths: %v", err)
+	}
+	expectStringSlice(t, paths, normalized)
+
+	err = dst.SetFields(
 		fullMessageWithScalars,
 		paths...,
 	)
@@ -220,6 +248,56 @@ func TestMessageWithOneofScalars(t *testing.T) {
 	expectStringSlice(t, nil, dst.FieldPaths(0))
 	expectStringSlice(t, paths, dst.FieldPaths(1))
 	expectStringSlice(t, paths, dst.FieldPaths(2))
+
+	normalized, err := dst.NormalizeFieldPaths(paths...)
+	if err != nil {
+		t.Errorf("unexpected error in NormalizeFieldPaths: %v", err)
+	}
+	expectStringSlice(t, paths, normalized)
+
+	normalized, err = dst.NormalizeFieldPaths(
+		"doubleValue",
+		"floatValue",
+		"int32Value",
+		"int64Value",
+		"uint32Value",
+		"uint64Value",
+		"sint32Value",
+		"sint64Value",
+		"fixed32Value",
+		"fixed64Value",
+		"sfixed32Value",
+		"sfixed64Value",
+		"boolValue",
+		"stringValue",
+		"bytesValue",
+	)
+	if err != nil {
+		t.Errorf("unexpected error in NormalizeFieldPaths: %v", err)
+	}
+	expectStringSlice(t, paths, normalized)
+
+	normalized, err = dst.NormalizeFieldPaths(
+		"value.doubleValue",
+		"value.floatValue",
+		"value.int32Value",
+		"value.int64Value",
+		"value.uint32Value",
+		"value.uint64Value",
+		"value.sint32Value",
+		"value.sint64Value",
+		"value.fixed32Value",
+		"value.fixed64Value",
+		"value.sfixed32Value",
+		"value.sfixed64Value",
+		"value.boolValue",
+		"value.stringValue",
+		"value.bytesValue",
+	)
+	if err != nil {
+		t.Errorf("unexpected error in NormalizeFieldPaths: %v", err)
+	}
+	expectStringSlice(t, paths, normalized)
 
 	for _, tt := range testMessagesWithOneofScalars {
 		t.Run(tt.name, func(t *testing.T) {

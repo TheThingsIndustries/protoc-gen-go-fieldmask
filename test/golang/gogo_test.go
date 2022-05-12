@@ -40,7 +40,13 @@ func TestMessageWithGoGoOptions(t *testing.T) {
 	expectStringSlice(t, paths, dst.FieldPaths(1))
 	expectStringSlice(t, paths, dst.FieldPaths(2))
 
-	err := dst.SetFields(
+	normalized, err := dst.NormalizeFieldPaths(paths...)
+	if err != nil {
+		t.Errorf("unexpected error in NormalizeFieldPaths: %v", err)
+	}
+	expectStringSlice(t, paths, normalized)
+
+	err = dst.SetFields(
 		fullMessageWithGoGoOptions,
 		paths...,
 	)

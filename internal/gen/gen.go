@@ -40,7 +40,7 @@ func GenerateFile(gen *protogen.Plugin, file *protogen.File) *protogen.Generated
 	}
 
 	// If the file doesn't have FieldSetters, we can skip it.
-	if !g.fileHasFieldSetter() && !g.fileHasFieldPaths() {
+	if !g.fileHasFieldSetter() && !g.fileHasFieldPaths() && !g.fileHasFieldPathNormalizer() {
 		return nil
 	}
 
@@ -170,6 +170,8 @@ func (g *generator) genMessage(message *protogen.Message) { //nolint:gocyclo
 	}
 
 	g.genFieldPaths(message)
+
+	g.genFieldPathNormalizer(message)
 
 	g.genFieldSetter(message)
 }
