@@ -17,6 +17,8 @@ message MessageWithoutFieldSetter {
   string message = 1;
 }
 
+message EmptyMessage {}
+
 message SubMessage {
   string foo = 1;
   string bar = 2;

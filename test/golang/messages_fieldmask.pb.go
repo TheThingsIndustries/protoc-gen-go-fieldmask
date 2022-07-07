@@ -43,6 +43,27 @@ func (x *MessageWithoutFieldSetter) NormalizeFieldPaths(paths ...string) ([]stri
 }
 
 // FieldPaths returns the field paths up to the given maximum depth.
+func (x *EmptyMessage) FieldPaths(maxDepth int) []string {
+	return nil
+}
+
+// NormalizeFieldPaths normalizes the field paths.
+func (x *EmptyMessage) NormalizeFieldPaths(paths ...string) ([]string, error) {
+	for _, field := range paths {
+		return nil, fieldmaskplugin.FieldErrorf("EmptyMessage", field, "unknown field")
+	}
+	return nil, nil
+}
+
+// SetFields sets the given fields from src into x.
+func (x *EmptyMessage) SetFields(src *EmptyMessage, paths ...string) error {
+	for _, field := range paths {
+		return fieldmaskplugin.FieldErrorf("EmptyMessage", field, "unknown field")
+	}
+	return nil
+}
+
+// FieldPaths returns the field paths up to the given maximum depth.
 func (x *SubMessage) FieldPaths(maxDepth int) []string {
 	if maxDepth == 0 {
 		return nil

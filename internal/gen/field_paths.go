@@ -59,6 +59,12 @@ func (g *generator) genFieldPaths(message *protogen.Message) { //nolint:gocyclo
 
 	g.P("// FieldPaths returns the field paths up to the given maximum depth.")
 	g.P("func (x *", message.GoIdent, ") FieldPaths(maxDepth int) []string {")
+	if len(message.Fields) == 0 {
+		g.P("return nil")
+		g.P("}")
+		return
+	}
+
 	g.P("if maxDepth == 0 {")
 	g.P("return nil")
 	g.P("}")
@@ -132,6 +138,15 @@ func (g *generator) genFieldPathNormalizer(message *protogen.Message) { //nolint
 
 	g.P("// NormalizeFieldPaths normalizes the field paths.")
 	g.P("func (x *", message.GoIdent, ") NormalizeFieldPaths(paths ...string) ([]string, error) {")
+
+	if len(message.Fields) == 0 {
+		g.P("for _, field := range paths {")
+		g.P("return nil, ", pp.Ident("FieldErrorf"), `("`, message.GoIdent, `", field, "unknown field")`)
+		g.P("}")
+		g.P("return nil, nil")
+		g.P("}")
+		return
+	}
 
 	// This is the set of fields we'll use to skip duplicates.
 	g.P("var (")

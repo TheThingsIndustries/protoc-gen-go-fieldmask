@@ -58,6 +58,15 @@ func (g *generator) genFieldSetter(message *protogen.Message) { //nolint:gocyclo
 	g.P("// SetFields sets the given fields from src into x.")
 	g.P("func (x *", message.GoIdent, ") SetFields(src *", message.GoIdent, ", paths ...string) error {")
 
+	if len(message.Fields) == 0 {
+		g.P("for _, field := range paths {")
+		g.P("return ", pp.Ident("FieldErrorf"), `("`, message.GoIdent, `", field, "unknown field")`)
+		g.P("}")
+		g.P("return nil")
+		g.P("}")
+		return
+	}
+
 	// First we deal with nil.
 	g.P("switch {")
 	g.P("case x == nil && src == nil:")
