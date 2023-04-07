@@ -21,7 +21,7 @@ func main() {
 	}
 
 	var flags flag.FlagSet
-	flags.StringVar(&plugin.Params.Lang, "lang", "go", "language (go or gogo)")
+	flags.StringVar(&plugin.Params.Lang, "lang", "go", "language (go)")
 
 	protogen.Options{
 		ParamFunc: flags.Set,
